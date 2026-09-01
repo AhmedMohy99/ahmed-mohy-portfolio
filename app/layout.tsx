@@ -2,10 +2,13 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { site } from '@/lib/site';
 
+const siteUrl = 'https://ahmed-mohy-portfolio.vercel.app';
+const pageTitle = 'Ahmed Mohyeldin — Software · AI · Experience · Growth';
+
 export const metadata: Metadata = {
-  metadataBase: new URL('https://ahmed-mohy-portfolio.vercel.app'),
+  metadataBase: new URL(siteUrl),
   title: {
-    default: 'Ahmed Mohyeldin — Software · AI · Experience · Growth',
+    default: pageTitle,
     template: '%s — Ahmed Mohyeldin',
   },
   description: site.description,
@@ -23,19 +26,27 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: site.name }],
   creator: site.name,
+  publisher: site.name,
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
-    title: 'Ahmed Mohyeldin — Software · AI · Experience · Growth',
+    title: pageTitle,
     description: site.description,
     type: 'website',
     siteName: site.name,
-    url: 'https://ahmed-mohy-portfolio.vercel.app',
+    url: siteUrl,
+    locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Ahmed Mohyeldin — Software · AI · Experience · Growth',
+    title: pageTitle,
     description: site.description,
   },
-  robots: { index: true, follow: true },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
