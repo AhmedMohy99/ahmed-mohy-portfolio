@@ -2,36 +2,22 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { site } from '@/lib/site';
 
-const siteUrl = 'https://ahmed-mohy-portfolio.vercel.app';
-const pageTitle = 'Ahmed Mohyeldin — Software · AI · Experience · Growth';
+const siteUrl = site.url;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: pageTitle,
+    default: site.title,
     template: '%s — Ahmed Mohyeldin',
   },
   description: site.description,
-  keywords: [
-    'Ahmed Mohyeldin',
-    'Software Engineer',
-    'AI',
-    'Web Development',
-    'UI UX',
-    'Three.js',
-    '3D',
-    'E-Commerce',
-    'Shopify',
-    'Growth',
-  ],
+  keywords: ['Ahmed Mohyeldin', 'Software Engineer', 'AI', 'Web Development', 'UI/UX', 'Three.js', '3D', 'E-Commerce', 'Shopify', 'Digital Growth'],
   authors: [{ name: site.name }],
   creator: site.name,
   publisher: site.name,
-  alternates: {
-    canonical: '/',
-  },
+  alternates: { canonical: '/' },
   openGraph: {
-    title: pageTitle,
+    title: site.title,
     description: site.description,
     type: 'website',
     siteName: site.name,
@@ -40,18 +26,13 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: pageTitle,
+    title: site.title,
     description: site.description,
   },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  robots: { index: true, follow: true },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <body>{children}</body>
