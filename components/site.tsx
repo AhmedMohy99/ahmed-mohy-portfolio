@@ -1,15 +1,16 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { ArrowUpRight, Github, Linkedin, MessageCircle, Menu, X } from 'lucide-react';
+import { ArrowUpRight, Menu, MessageCircle, X } from 'lucide-react';
 import { Hero3D } from './hero';
-import { projects, aiProjects } from '@/data/projects';
+import { aiProjects, projects, services } from '@/data/projects';
+import { site } from '@/lib/site';
 
 const filters = ['ALL', 'SOFTWARE', 'AI', 'WEB', '3D', 'E-COMMERCE', 'GROWTH'];
 
 function matchesFilter(type: string, filter: string) {
   if (filter === 'ALL') return true;
-  if (filter === 'AI') return type.includes('AI');
+  if (filter === 'AI') return false;
   if (filter === '3D') return type.includes('3D') || type.includes('EXPERIENCE');
   if (filter === 'E-COMMERCE') return type.includes('E-COMMERCE') || type.includes('SHOPIFY');
   if (filter === 'WEB') return type.includes('WEB') || type.includes('DIGITAL');
@@ -24,12 +25,12 @@ export default function Site() {
   const [filter, setFilter] = useState('ALL');
 
   useEffect(() => {
-    let last = 0;
+    let last = window.scrollY;
     const onScroll = () => {
       const y = window.scrollY;
       if (nav.current) {
-        nav.current.style.transform = y > last && y > 80 ? 'translateY(-120%)' : 'translateY(0)';
-        nav.current.style.background = y > 40 ? 'rgba(8,8,8,.76)' : 'transparent';
+        nav.current.style.transform = y > last && y > 80 ? 'translateY(-110%)' : 'translateY(0)';
+        nav.current.style.background = y > 40 ? 'rgba(8,8,8,.86)' : 'rgba(8,8,8,.12)';
       }
       last = y;
     };
@@ -37,32 +38,32 @@ export default function Site() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const visibleProjects = projects.filter((p) => matchesFilter(p.type, filter));
-
+  const visibleProjects = projects.filter((project) => matchesFilter(project.type, filter));
   const closeMenu = () => setMenuOpen(false);
 
   return (
     <main className="grain" id="top">
-      <header ref={nav} style={{ transition: 'transform .45s ease, background .35s ease' }} className="fixed top-0 left-0 right-0 z-40 border-b border-white/5 backdrop-blur-md">
-        <div className="container flex h-20 items-center justify-between">
-          <a href="#top" onClick={closeMenu} className="display text-sm tracking-tight">AHMED MOHYELDIN<span className="text-zinc-500">.</span></a>
-          <nav className="hidden md:flex items-center gap-9 text-[11px] uppercase tracking-[.18em] text-zinc-400">
-            <a href="#work" className="hover:text-white transition">Work</a>
-            <a href="#expertise" className="hover:text-white transition">Expertise</a>
-            <a href="#about" className="hover:text-white transition">About</a>
+      <header ref={nav} className="site-nav fixed left-0 right-0 top-0 z-50 border-b border-white/5 backdrop-blur-xl">
+        <div className="container flex h-[76px] items-center justify-between">
+          <a href="#top" onClick={closeMenu} className="display text-sm tracking-[-.03em]">AHMED MOHYELDIN<span className="text-zinc-500">.</span></a>
+          <nav className="hidden items-center gap-8 text-[10px] uppercase tracking-[.2em] text-zinc-400 md:flex">
+            <a href="#work" className="nav-link">Work</a>
+            <a href="#services" className="nav-link">Services</a>
+            <a href="#about" className="nav-link">About</a>
+            <a href="#contact" className="nav-link">Contact</a>
           </nav>
           <div className="flex items-center gap-2">
-            <a href="#contact" className="hidden sm:inline-flex rounded-full border border-white/15 px-4 py-2 text-[10px] uppercase tracking-[.15em] hover:bg-white hover:text-black transition">Start a project ↗</a>
-            <button aria-label={menuOpen ? 'Close menu' : 'Open menu'} aria-expanded={menuOpen} onClick={() => setMenuOpen((v) => !v)} className="md:hidden rounded-full border border-white/15 p-2">
+            <a href="#contact" className="hidden rounded-full border border-white/15 px-4 py-2 text-[10px] uppercase tracking-[.16em] transition hover:border-white hover:bg-white hover:text-black sm:inline-flex">Start a project ↗</a>
+            <button aria-label={menuOpen ? 'Close menu' : 'Open menu'} aria-expanded={menuOpen} onClick={() => setMenuOpen((value) => !value)} className="rounded-full border border-white/15 p-2 md:hidden">
               {menuOpen ? <X size={16} /> : <Menu size={16} />}
             </button>
           </div>
         </div>
         {menuOpen && (
-          <div className="md:hidden border-t border-white/10 bg-[#080808]/95 px-7 py-7 backdrop-blur-xl">
-            <div className="flex flex-col gap-5 text-sm uppercase tracking-[.16em]">
+          <div className="border-t border-white/10 bg-[#080808]/95 px-6 py-7 backdrop-blur-xl md:hidden">
+            <div className="flex flex-col gap-5 text-xs uppercase tracking-[.18em]">
               <a href="#work" onClick={closeMenu}>Work</a>
-              <a href="#expertise" onClick={closeMenu}>Expertise</a>
+              <a href="#services" onClick={closeMenu}>Services</a>
               <a href="#about" onClick={closeMenu}>About</a>
               <a href="#contact" onClick={closeMenu}>Start a project ↗</a>
             </div>
@@ -70,130 +71,134 @@ export default function Site() {
         )}
       </header>
 
-      <section className="relative min-h-screen overflow-hidden">
+      <section className="hero-section relative min-h-screen overflow-hidden">
         <Hero3D />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,transparent_0%,rgba(8,8,8,.12)_35%,#080808_80%)]" />
-        <div className="container relative z-10 flex min-h-screen flex-col justify-end pb-14 pt-28">
+        <div className="hero-vignette absolute inset-0" />
+        <div className="container relative z-10 flex min-h-screen flex-col justify-end pb-12 pt-28 md:pb-16">
           <div className="max-w-6xl">
-            <div className="eyebrow mb-5">SOFTWARE · AI · EXPERIENCE · GROWTH</div>
-            <h1 className="display text-[clamp(3.7rem,9.8vw,9.8rem)] leading-[.82] max-w-5xl">I BUILD DIGITAL<br /><span className="serif font-normal italic">EXPERIENCES</span><br />THAT MOVE BUSINESS.</h1>
+            <div className="eyebrow mb-5">SOFTWARE · AI · UI/UX · 3D · GROWTH</div>
+            <h1 className="display hero-title">I BUILD DIGITAL<br /><span className="serif font-normal italic">EXPERIENCES</span><br />THAT MOVE BUSINESS.</h1>
+            <p className="hero-copy mt-7 max-w-2xl">I&apos;m Ahmed Mohyeldin — a software engineer and digital builder helping brands turn products, ideas and data into premium experiences that are built to grow.</p>
           </div>
-          <div className="mt-10 flex flex-wrap items-center gap-3">
-            <a href="#work" className="rounded-full bg-[#f2efe8] px-6 py-3 text-xs font-semibold text-black">EXPLORE WORK ↘</a>
-            <a href="#contact" className="rounded-full border border-white/20 px-6 py-3 text-xs">START A PROJECT ↗</a>
+          <div className="mt-9 flex flex-wrap gap-3">
+            <a href="#work" className="primary-button">Explore work <span>↘</span></a>
+            <a href="#contact" className="secondary-button">Start a project <span>↗</span></a>
+          </div>
+          <div className="mt-14 hidden items-center justify-between border-t border-white/10 pt-5 text-[10px] uppercase tracking-[.18em] text-zinc-500 md:flex">
+            <span>Egypt · Available for selected projects</span><span>Scroll to explore ↓</span>
           </div>
         </div>
       </section>
 
-      <section className="container py-32 md:py-48">
-        <div className="eyebrow mb-7">01 / INTRO</div>
-        <h2 className="display max-w-5xl text-[clamp(3rem,7vw,7rem)] leading-[.9]">MORE THAN A <span className="serif font-normal italic">DEVELOPER.</span></h2>
-        <p className="mt-10 max-w-2xl text-xl leading-relaxed text-zinc-400">I combine software engineering, artificial intelligence, design, e-commerce and growth to build digital products and experiences that don&apos;t just look good — they work.</p>
+      <section className="container py-28 md:py-44">
+        <div className="eyebrow mb-7">01 / POSITIONING</div>
+        <div className="grid gap-12 md:grid-cols-[1.25fr_.75fr] md:items-end">
+          <h2 className="display section-title">MORE THAN A <span className="serif font-normal italic">DEVELOPER.</span></h2>
+          <div><p className="text-lg leading-relaxed text-zinc-400">Software engineering is the foundation. I also work across AI, UI/UX, 3D, e-commerce, product presentation and marketing — so a brand can move from idea to launch without losing the connection between technology and business.</p><div className="mt-8 text-[10px] uppercase tracking-[.16em] text-zinc-600">Build · Present · Target · Measure · Grow</div></div>
+        </div>
       </section>
 
-      <section id="expertise" className="border-y border-[#242421]">
-        <div className="container py-24">
-          <div className="eyebrow mb-12">02 / EXPERTISE</div>
+      <section id="services" className="border-y border-[#242421] bg-[#0b0b0a]">
+        <div className="container py-28 md:py-40">
+          <div className="eyebrow mb-12">02 / SERVICES</div>
           <div className="grid md:grid-cols-2">
-            {[
-              ['01', 'BUILD', 'Software Engineering', 'Websites · Web Apps · E-Commerce · Shopify · WordPress · APIs · Automation'],
-              ['02', 'THINK', 'AI & Data', 'AI Applications · RAG · Chatbots · Document Intelligence · Analytics · Automation'],
-              ['03', 'EXPERIENCE', 'UI/UX · 3D', 'Product Experience · 3D Web · Virtual Try-On · Fitting Rooms · Motion'],
-              ['04', 'GROW', 'Marketing & Commerce', 'Performance Marketing · Targeting · Conversion · Analytics · E-Commerce Growth'],
-            ].map(([n, title, sub, desc]) => (
-              <div key={n} className="border-b border-r border-[#242421] p-7 md:p-12 min-h-72 group hover:bg-white/[.025] transition-colors">
-                <div className="text-xs text-zinc-600">{n}</div>
-                <h3 className="display mt-12 text-4xl md:text-6xl group-hover:translate-x-2 transition-transform">{title}</h3>
-                <div className="mt-3 text-sm text-zinc-300">{sub}</div>
-                <p className="mt-5 max-w-sm text-sm leading-relaxed text-zinc-500">{desc}</p>
-              </div>
+            {services.map((service) => (
+              <article key={service.number} className="service-card group">
+                <div className="text-xs text-zinc-600">{service.number}</div>
+                <div className="mt-12 text-[10px] uppercase tracking-[.2em] text-zinc-500">{service.label}</div>
+                <h3 className="display mt-3 text-4xl md:text-6xl">{service.title}</h3>
+                <p className="mt-5 max-w-md text-sm leading-relaxed text-zinc-500">{service.text}</p>
+                <div className="mt-10 h-px w-10 bg-white/20 transition-all duration-500 group-hover:w-24" />
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="work" className="container py-32 md:py-48">
+      <section id="work" className="container py-28 md:py-44">
         <div className="eyebrow mb-5">03 / SELECTED WORK</div>
         <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
-          <h2 className="display text-6xl md:text-8xl">SELECTED <span className="serif font-normal italic">WORK.</span></h2>
-          <div className="flex flex-wrap gap-2 max-w-xl">
-            {filters.map((item) => (
-              <button key={item} onClick={() => setFilter(item)} className={`rounded-full border px-3 py-2 text-[10px] tracking-[.14em] transition ${filter === item ? 'border-white bg-white text-black' : 'border-white/10 text-zinc-500 hover:text-white'}`}>{item}</button>
-            ))}
+          <h2 className="display section-title">SELECTED <span className="serif font-normal italic">WORK.</span></h2>
+          <div className="flex max-w-xl flex-wrap gap-2">
+            {filters.map((item) => <button key={item} onClick={() => setFilter(item)} className={`filter-pill ${filter === item ? 'active' : ''}`}>{item}</button>)}
           </div>
         </div>
 
         <div className="mt-14">
-          {visibleProjects.filter((p) => p.featured).map((p, i) => (
-            <a key={p.slug} href={`/work/${p.slug}`} className="group block border-t border-[#242421] py-10 md:py-16">
+          {visibleProjects.filter((project) => project.featured).map((project, index) => (
+            <a key={project.slug} href={`/work/${project.slug}`} className="project-feature group block border-t border-[#242421] py-10 md:py-16">
               <div className="flex items-start justify-between gap-8">
                 <div>
-                  <div className="eyebrow">0{i + 1} · {p.type}</div>
-                  <h3 className="display mt-4 text-[clamp(2.5rem,7vw,7rem)] leading-none transition-transform duration-500 group-hover:translate-x-3">{p.name}</h3>
-                  <p className="mt-6 max-w-xl text-zinc-500">{p.description}</p>
+                  <div className="eyebrow">0{index + 1} · {project.type}</div>
+                  <h3 className="display mt-4 text-[clamp(2.6rem,7vw,7rem)] leading-none">{project.name}</h3>
+                  <p className="mt-6 max-w-xl text-sm leading-relaxed text-zinc-500">{project.description}</p>
+                  <div className="mt-6 flex flex-wrap gap-2">{project.services.slice(0, 4).map((tag) => <span key={tag} className="tag">{tag}</span>)}</div>
                 </div>
-                <ArrowUpRight className="mt-2 shrink-0 text-zinc-600 transition group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1" />
+                <ArrowUpRight className="mt-2 shrink-0 text-zinc-600 transition duration-500 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-white" />
               </div>
             </a>
           ))}
-          <div className="grid md:grid-cols-2 border-t border-[#242421]">
-            {visibleProjects.filter((p) => !p.featured).map((p) => (
-              <a key={p.slug} href={`/work/${p.slug}`} className="border-b border-r border-[#242421] p-7 md:p-10 group hover:bg-white/[.02] transition">
-                <div className="eyebrow">{p.type}</div>
-                <div className="mt-8 flex justify-between gap-4"><h3 className="display text-3xl">{p.name}</h3><ArrowUpRight className="text-zinc-600 group-hover:text-white" /></div>
+          <div className="grid border-t border-[#242421] md:grid-cols-2">
+            {visibleProjects.filter((project) => !project.featured).map((project) => (
+              <a key={project.slug} href={`/work/${project.slug}`} className="project-small group border-b border-r border-[#242421] p-7 md:p-10">
+                <div className="eyebrow">{project.type}</div>
+                <div className="mt-8 flex justify-between gap-4"><h3 className="display text-3xl">{project.name}</h3><ArrowUpRight className="text-zinc-600 transition group-hover:text-white" /></div>
+                <p className="mt-4 text-sm text-zinc-600">{project.role}</p>
               </a>
             ))}
           </div>
+          {visibleProjects.length === 0 && <p className="border-t border-[#242421] py-12 text-zinc-500">More work in this category is being documented.</p>}
         </div>
       </section>
 
-      <section className="bg-[#11110f] py-32 md:py-48">
+      <section className="border-y border-[#242421] bg-[#11110f] py-28 md:py-40">
         <div className="container">
-          <div className="eyebrow mb-7">04 / INTELLIGENCE</div>
-          <h2 className="display max-w-5xl text-[clamp(3rem,7vw,7rem)] leading-[.88]">I DON&apos;T JUST USE AI.<br /><span className="serif font-normal italic">I BUILD WITH IT.</span></h2>
-          <div className="mt-16 grid md:grid-cols-2 border-t border-[#2b2b27]">
-            {aiProjects.map(([name, sub], i) => (
-              <div key={name} className="border-b border-r border-[#2b2b27] p-8 md:p-12 hover:bg-white/[.02] transition">
-                <div className="text-xs text-zinc-600">0{i + 1}</div><h3 className="display mt-10 text-3xl md:text-5xl">{name}</h3><p className="mt-3 text-zinc-500">{sub}</p>
-              </div>
-            ))}
+          <div className="eyebrow mb-7">04 / AI & DATA</div>
+          <div className="grid gap-12 md:grid-cols-[1.1fr_.9fr] md:items-end">
+            <h2 className="display section-title">I DON&apos;T JUST USE AI.<br /><span className="serif font-normal italic">I BUILD WITH IT.</span></h2>
+            <p className="max-w-xl text-lg leading-relaxed text-zinc-400">From conversational assistants to document intelligence, analytics, automation and lead generation, I use AI where it can create a real business advantage.</p>
           </div>
-          <a href="https://ai-chatbot-portfolio-ahmed-mohy.vercel.app/" target="_blank" rel="noreferrer" className="mt-10 inline-flex items-center gap-2 text-xs uppercase tracking-[.16em] text-zinc-400 hover:text-white">Explore AI Portfolio <ArrowUpRight size={14} /></a>
+          <div className="mt-16 grid border-t border-[#2b2b27] md:grid-cols-2">
+            {aiProjects.map(([name, sub], index) => <div key={name} className="ai-card border-b border-r border-[#2b2b27] p-7 md:p-10"><div className="text-xs text-zinc-600">0{index + 1}</div><h3 className="display mt-9 text-3xl md:text-4xl">{name}</h3><p className="mt-3 text-sm text-zinc-500">{sub}</p></div>)}
+          </div>
+          <a href={site.aiPortfolio} target="_blank" rel="noreferrer" className="mt-10 inline-flex items-center gap-2 text-[10px] uppercase tracking-[.18em] text-zinc-400 hover:text-white">Explore AI Portfolio <ArrowUpRight size={14} /></a>
         </div>
       </section>
 
-      <section className="container py-32 md:py-48">
+      <section className="container py-28 md:py-44">
         <div className="eyebrow mb-7">05 / 3D EXPERIENCE</div>
-        <div className="rounded-[2rem] border border-[#242421] overflow-hidden bg-black min-h-[620px] relative">
-          <div className="absolute inset-0 opacity-80"><Hero3D /></div>
-          <div className="relative z-10 p-8 md:p-14 flex min-h-[620px] flex-col justify-end bg-gradient-to-t from-black via-transparent to-transparent">
+        <div className="experience-frame">
+          <div className="absolute inset-0 opacity-90"><Hero3D /></div>
+          <div className="relative z-10 flex min-h-[600px] flex-col justify-end bg-gradient-to-t from-black via-black/20 to-transparent p-8 md:p-14">
             <div className="eyebrow">INTERACTIVE COMMERCE</div>
-            <h2 className="display mt-4 text-[clamp(3rem,8vw,8rem)] leading-[.82]">THE DIGITAL<br /><span className="serif font-normal italic">FITTING ROOM.</span></h2>
-            <p className="mt-7 max-w-lg text-zinc-400">Interactive 3D fashion experiences designed to bring physical product exploration into the browser.</p>
+            <h2 className="display mt-4 text-[clamp(3.5rem,8vw,8rem)] leading-[.8]">THE DIGITAL<br /><span className="serif font-normal italic">FITTING ROOM.</span></h2>
+            <p className="mt-7 max-w-lg text-sm leading-relaxed text-zinc-400">3D product experiences, virtual try-on concepts and interactive interfaces that bring physical product exploration into the browser.</p>
           </div>
         </div>
       </section>
 
       <section id="about" className="border-y border-[#242421]">
-        <div className="container grid md:grid-cols-2 gap-16 py-32 md:py-44">
-          <div><div className="eyebrow">06 / ABOUT</div><h2 className="display mt-8 text-6xl md:text-8xl leading-[.88]">THE ENGINEER<br /><span className="serif font-normal italic">BEHIND THE EXPERIENCE.</span></h2></div>
-          <div className="self-end"><p className="text-xl leading-relaxed text-zinc-400">I&apos;m Ahmed Mohyeldin, a software engineer and digital builder working across AI, web development, UI/UX, 3D, e-commerce and growth.</p><div className="mt-10 flex flex-wrap gap-3">{['Next.js', 'React', 'TypeScript', 'Python', 'AI', 'Three.js', 'GSAP', 'Shopify', 'WordPress', 'WooCommerce', 'Blender'].map((x) => <span key={x} className="rounded-full border border-white/10 px-4 py-2 text-xs text-zinc-400">{x}</span>)}</div></div>
+        <div className="container grid gap-16 py-28 md:grid-cols-2 md:py-40">
+          <div><div className="eyebrow">06 / ABOUT</div><h2 className="display mt-8 text-[clamp(3.4rem,7vw,7rem)] leading-[.84]">THE ENGINEER<br /><span className="serif font-normal italic">BEHIND THE EXPERIENCE.</span></h2></div>
+          <div className="self-end"><p className="text-xl leading-relaxed text-zinc-400">I&apos;m Ahmed Mohyeldin, a software engineer with an AI background who works across technology, digital experience and commercial growth. I can build the website, improve the UX, present the product, connect the data and help turn attention into sales.</p><div className="mt-10 flex flex-wrap gap-2">{['Next.js', 'React', 'TypeScript', 'Python', 'AI', 'Three.js', 'GSAP', 'Shopify', 'WordPress', 'WooCommerce', 'Blender', 'UI/UX', 'Marketing', 'Analytics'].map((item) => <span key={item} className="tag">{item}</span>)}</div></div>
         </div>
       </section>
 
-      <section id="contact" className="container py-32 md:py-48">
+      <section id="contact" className="container py-28 md:py-44">
         <div className="eyebrow">07 / CONTACT</div>
-        <h2 className="display mt-8 text-[clamp(4rem,11vw,11rem)] leading-[.78]">LET&apos;S BUILD<br /><span className="serif font-normal italic">SOMETHING.</span></h2>
-        <p className="mt-10 max-w-xl text-lg text-zinc-500">Have a brand, product, website or AI idea? Let&apos;s turn it into something people can experience.</p>
-        <div className="mt-12 flex flex-wrap gap-3">
-          <a className="rounded-full bg-[#f2efe8] px-7 py-4 text-sm font-semibold text-black" href="https://api.whatsapp.com/send/?phone=201016286261&text&type=phone_number&app_absent=0" target="_blank" rel="noreferrer"><MessageCircle className="inline mr-2 h-4 w-4" />WhatsApp</a>
-          <a className="rounded-full border border-white/15 px-7 py-4 text-sm" href="https://github.com/AhmedMohy99" target="_blank" rel="noreferrer"><Github className="inline mr-2 h-4 w-4" />GitHub</a>
-          <a className="rounded-full border border-white/15 px-7 py-4 text-sm" href="https://www.linkedin.com/in/ahmed-mohy-83b447220/" target="_blank" rel="noreferrer"><Linkedin className="inline mr-2 h-4 w-4" />LinkedIn</a>
-          <a className="rounded-full border border-white/15 px-7 py-4 text-sm" href="https://ai-chatbot-portfolio-ahmed-mohy.vercel.app/" target="_blank" rel="noreferrer">AI Portfolio ↗</a>
+        <div className="grid gap-12 md:grid-cols-[1fr_auto] md:items-end">
+          <div><h2 className="display mt-8 text-[clamp(4rem,11vw,11rem)] leading-[.77]">LET&apos;S BUILD<br /><span className="serif font-normal italic">SOMETHING.</span></h2><p className="mt-10 max-w-xl text-lg leading-relaxed text-zinc-500">Have a brand, product, website, AI idea or an existing website that needs to be transformed? Tell me what you want to build or improve.</p></div>
+          <div className="flex flex-col gap-3 md:min-w-48">
+            <a className="primary-button justify-center" href={site.whatsapp} target="_blank" rel="noreferrer"><MessageCircle size={16} /> WhatsApp</a>
+            <a className="secondary-button justify-center" href={site.linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a>
+            <a className="secondary-button justify-center" href={site.github} target="_blank" rel="noreferrer">GitHub ↗</a>
+            <a className="secondary-button justify-center" href={site.aiPortfolio} target="_blank" rel="noreferrer">AI Portfolio ↗</a>
+            <a className="secondary-button justify-center" href={site.linktree} target="_blank" rel="noreferrer">Linktree ↗</a>
+          </div>
         </div>
       </section>
 
-      <footer className="border-t border-[#242421] py-8"><div className="container flex flex-col md:flex-row justify-between gap-3 text-xs text-zinc-600"><span>© 2026 Ahmed Mohyeldin</span><span>SOFTWARE · AI · EXPERIENCE · GROWTH</span></div></footer>
+      <footer className="border-t border-[#242421] py-8"><div className="container flex flex-col justify-between gap-3 text-[10px] uppercase tracking-[.16em] text-zinc-600 md:flex-row"><span>© 2026 Ahmed Mohyeldin</span><span>SOFTWARE · AI · EXPERIENCE · GROWTH</span></div></footer>
     </main>
   );
 }
