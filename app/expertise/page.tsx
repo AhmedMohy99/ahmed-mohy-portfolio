@@ -1,12 +1,28 @@
-export const metadata = { title: 'Expertise' };
+import type { Metadata } from 'next';
+import { services } from '@/data/projects';
 
-const areas = [
-  ['BUILD', 'Software engineering, web applications, e-commerce, Shopify, WordPress, WooCommerce and automation.'],
-  ['THINK', 'AI applications, chatbots, RAG, document intelligence, analytics, machine learning and lead generation.'],
-  ['EXPERIENCE', 'UI/UX, product experience, 3D websites, Three.js, virtual try-on and immersive commerce.'],
-  ['GROW', 'Performance marketing, targeting, conversion, analytics, content and e-commerce growth.'],
-];
+export const metadata: Metadata = {
+  title: 'Expertise',
+  description: 'Software engineering, AI, UI/UX, 3D, e-commerce and growth services by Ahmed Mohyeldin.',
+};
 
 export default function ExpertisePage() {
-  return <main className="page-shell"><a className="back-link" href="/">← Home</a><p className="eyebrow">EXPERTISE</p><h1>One digital partner. Multiple disciplines.</h1><div className="simple-grid">{areas.map(([title, text]) => <article key={title}><p className="eyebrow">{title}</p><p className="lead">{text}</p></article>)}</div></main>;
+  return (
+    <main className="grain page-shell">
+      <a className="back-link" href="/">← Home</a>
+      <p className="eyebrow">EXPERTISE</p>
+      <h1>One digital partner. Multiple disciplines.</h1>
+      <p className="lead">I connect engineering, experience and growth so a brand can move from product idea to a polished digital presence and measurable commercial journey.</p>
+      <div className="simple-grid">
+        {services.map((service) => (
+          <article key={service.number}>
+            <p className="eyebrow">{service.number} / {service.label}</p>
+            <h2 className="display">{service.title}</h2>
+            <p>{service.text}</p>
+          </article>
+        ))}
+      </div>
+      <div className="mt-12"><a className="primary-button" href="/#contact">Start a project ↗</a></div>
+    </main>
+  );
 }
