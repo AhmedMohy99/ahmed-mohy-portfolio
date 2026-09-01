@@ -12,16 +12,8 @@ function Orb() {
     if (!ref.current) return;
     ref.current.rotation.x = state.clock.elapsedTime * 0.16;
     ref.current.rotation.y = state.clock.elapsedTime * 0.22;
-    ref.current.position.x = THREE.MathUtils.lerp(
-      ref.current.position.x,
-      (state.pointer.x || 0) * 0.35,
-      0.03,
-    );
-    ref.current.position.y = THREE.MathUtils.lerp(
-      ref.current.position.y,
-      (state.pointer.y || 0) * 0.25,
-      0.03,
-    );
+    ref.current.position.x = THREE.MathUtils.lerp(ref.current.position.x, state.pointer.x * 0.35, 0.03);
+    ref.current.position.y = THREE.MathUtils.lerp(ref.current.position.y, state.pointer.y * 0.25, 0.03);
   });
 
   return (
@@ -54,7 +46,6 @@ export function Hero3D() {
         camera={{ position: [0, 0, 5], fov: 42 }}
         dpr={[1, 1.25]}
         gl={{ antialias: false, alpha: true, powerPreference: 'high-performance' }}
-        frameloop="demand"
         performance={{ min: 0.5, max: 1, debounce: 200 }}
       >
         <ambientLight intensity={1.4} />
