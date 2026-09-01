@@ -1,137 +1,111 @@
+export type ProjectCategory = 'web' | 'ecommerce' | 'shopify' | 'uiux' | 'growth';
+
 export type Project = {
   slug: string;
   name: string;
-  type: string;
+  category: ProjectCategory[];
+  tag: string;
   url: string;
   featured: boolean;
   description: string;
   role: string;
   services: string[];
+  challenge: string;
+  approach: string[];
   outcome: string;
+  technologies: string[];
 };
 
 export const projects: Project[] = [
   {
-    slug: 'laro-cosmetics',
-    name: 'LARO COSMETICS',
-    type: 'BEAUTY · SHOPIFY · E-COMMERCE',
-    url: 'https://laro-cosmetics.com',
-    featured: true,
-    description: 'A premium beauty commerce experience focused on product presentation, navigation, mobile UX and conversion.',
-    role: 'Shopify · UX/UI · E-commerce optimization',
-    services: ['Shopify', 'UI/UX', 'Storefront UX', 'Conversion', 'Product merchandising'],
-    outcome: 'A cleaner customer journey designed to make discovering products and completing a purchase easier.',
+    slug: 'laro-cosmetics', name: 'LARO Cosmetics', category: ['ecommerce', 'shopify', 'uiux'], tag: 'Beauty · Shopify', url: 'https://laro-cosmetics.com', featured: true,
+    description: 'A beauty commerce storefront rebuilt around product clarity — cleaner navigation, faster browsing and a shopping journey that respects the product.',
+    role: 'Shopify development · UI/UX · Conversion', services: ['Shopify build', 'UI/UX design', 'Storefront UX', 'Product merchandising', 'Conversion review'],
+    challenge: 'The catalog was hard to browse on mobile, and the storefront did not reflect the quality of the products it was selling.',
+    approach: ['Restructured navigation and collections around how customers actually shop for beauty products.', 'Rebuilt product and collection templates for a calmer, more premium presentation.', 'Tightened the mobile checkout path to remove friction between browsing and buying.'],
+    outcome: 'A storefront that feels considered rather than templated, with a clearer path from discovery to checkout.', technologies: ['Shopify', 'Liquid', 'JavaScript', 'CSS']
   },
   {
-    slug: 'saffa-fashion',
-    name: 'SAFFA FASHION',
-    type: 'FASHION · DIGITAL EXPERIENCE',
-    url: 'https://www.saffafashion.shop',
-    featured: true,
-    description: 'A fashion storefront with product-led UX, responsive layouts, product galleries and a focused shopping journey.',
-    role: 'Web development · UX/UI · E-commerce',
-    services: ['Next.js', 'React', 'Responsive UX', 'Product UI', 'Cart experience'],
-    outcome: 'A fast, modern storefront structure built around product discovery and mobile-first browsing.',
+    slug: 'saffa-fashion', name: 'Saffa Fashion', category: ['ecommerce', 'web', 'uiux'], tag: 'Fashion · Web', url: 'https://www.saffafashion.shop', featured: true,
+    description: 'A fashion storefront built product-first, with responsive galleries and a cart experience designed for mobile shoppers.',
+    role: 'Web development · UI/UX · E-commerce', services: ['Next.js build', 'Responsive UX', 'Product gallery UI', 'Cart experience'],
+    challenge: 'The brand needed a storefront that could present a growing product range clearly across every screen size, without slowing the site down.',
+    approach: ['Built a component-based front end so new products and collections drop in without design debt.', 'Designed product galleries and detail pages around imagery rather than clutter.', 'Prioritised load speed on mobile, where most of the brand’s traffic converts.'],
+    outcome: 'A fast, modern storefront structured around product discovery and mobile-first browsing.', technologies: ['Next.js', 'React', 'CSS']
   },
   {
-    slug: 'sway-maverick',
-    name: 'SWAY MAVERICK',
-    type: 'FASHION · E-COMMERCE · EXPERIENCE',
-    url: 'https://swaymaverick.com',
-    featured: true,
-    description: 'A premium fashion commerce experience combining brand storytelling, product discovery and digital retail.',
-    role: 'E-commerce · Product experience · Brand presentation',
-    services: ['E-commerce', 'UI/UX', 'Product presentation', 'Conversion', 'Brand experience'],
-    outcome: 'A more premium digital presentation designed to connect brand perception with the shopping experience.',
+    slug: 'sway-maverick', name: 'SWAY Maverick', category: ['ecommerce', 'uiux', 'growth'], tag: 'Fashion · Brand experience', url: 'https://swaymaverick.com', featured: true,
+    description: 'A fashion commerce experience that ties brand storytelling directly to the product grid, so browsing feels like reading a lookbook.',
+    role: 'E-commerce · Product experience · Brand presentation', services: ['E-commerce UX', 'Brand presentation', 'Product storytelling', 'Conversion review'],
+    challenge: 'The brand had a strong visual identity that wasn’t coming through in a standard commerce template.',
+    approach: ['Rebuilt key landing and collection pages around editorial imagery and brand voice.', 'Simplified the path from lookbook-style browsing to a single product page.', 'Reviewed the funnel end to end to remove steps that added friction without adding trust.'],
+    outcome: 'A more premium digital presentation that connects brand perception with the shopping experience.', technologies: ['E-commerce platform', 'Custom theming', 'CSS']
   },
   {
-    slug: 'iris',
-    name: 'IRIS',
-    type: 'LUXURY FASHION · UX · E-COMMERCE',
-    url: 'https://iris-eg.net',
-    featured: true,
-    description: 'A quiet-luxury fashion experience shaped around premium presentation, clearer navigation and a stronger shopping journey.',
-    role: 'Website audit · UX/UI · WooCommerce · Conversion',
-    services: ['WordPress', 'WooCommerce', 'Elementor', 'UX audit', 'E-commerce optimization'],
-    outcome: 'A refined digital direction for a luxury womenswear brand in Egypt and the Middle East.',
+    slug: 'iris', name: 'IRIS Contemporary Womenswear', category: ['ecommerce', 'uiux', 'growth'], tag: 'Luxury fashion · WooCommerce', url: 'https://iris-eg.net', featured: true,
+    description: 'A quiet-luxury womenswear experience reshaped around premium presentation, clearer navigation and a stronger path to checkout.',
+    role: 'Website audit · UI/UX · WooCommerce · Conversion', services: ['UX audit', 'WordPress · WooCommerce', 'Elementor build', 'E-commerce optimization'],
+    challenge: 'The existing site undersold the brand’s quiet-luxury positioning and made it difficult for customers to move from browsing to buying.',
+    approach: ['Ran a full UX audit of the storefront, from homepage to checkout.', 'Rebuilt key templates in WooCommerce and Elementor for a calmer, more editorial feel.', 'Simplified navigation and product pages to match how a luxury customer expects to shop.'],
+    outcome: 'A more refined digital direction for a contemporary womenswear brand serving Egypt and the wider Middle East.', technologies: ['WordPress', 'WooCommerce', 'Elementor']
   },
   {
-    slug: 'zrex',
-    name: 'ZREX',
-    type: 'FASHION · E-COMMERCE',
-    url: 'https://zrexeg.com',
-    featured: false,
-    description: 'Fashion commerce and product experience work focused on a clear path from product discovery to purchase.',
-    role: 'Web · E-commerce · Product experience',
-    services: ['E-commerce', 'Product UI', 'Responsive design', 'Conversion'],
-    outcome: 'A product-focused digital presence built for easier browsing and stronger commercial presentation.',
+    slug: 'zrex', name: 'ZREX', category: ['ecommerce', 'web'], tag: 'Fashion · Commerce', url: 'https://zrexeg.com', featured: false,
+    description: 'Fashion commerce and product experience work focused on a clear path from discovery to purchase.',
+    role: 'Web · E-commerce · Product experience', services: ['E-commerce build', 'Product UI', 'Responsive design', 'Conversion review'],
+    challenge: 'The storefront needed a clearer, faster route from product discovery to checkout.',
+    approach: ['Simplified product and collection layouts for faster scanning on mobile.', 'Reviewed the checkout flow and removed unnecessary steps.'],
+    outcome: 'A product-focused digital presence built for easier browsing and stronger commercial presentation.', technologies: ['E-commerce platform', 'CSS']
   },
   {
-    slug: 'ucypta',
-    name: 'UCYPTA',
-    type: 'SHOPIFY · E-COMMERCE',
-    url: 'https://ucypta-fs.myshopify.com',
-    featured: false,
-    description: 'A Shopify commerce experience with product-led navigation and a streamlined online shopping interface.',
-    role: 'Shopify · Storefront · UX/UI',
-    services: ['Shopify', 'Store setup', 'Product UX', 'Navigation'],
-    outcome: 'A cleaner storefront foundation for product browsing and online sales.',
+    slug: 'ucypta', name: 'UCYPTA', category: ['shopify', 'ecommerce'], tag: 'Shopify · Storefront', url: 'https://ucypta-fs.myshopify.com', featured: false,
+    description: 'A Shopify storefront foundation with product-led navigation and a streamlined shopping interface.',
+    role: 'Shopify · Storefront · UI/UX', services: ['Shopify store setup', 'Product UX', 'Navigation design'],
+    challenge: 'The store needed a clean foundation to launch on, built for future catalog growth.',
+    approach: ['Set up the Shopify store structure, collections and navigation from the ground up.', 'Designed product templates that stay clear as the catalog grows.'],
+    outcome: 'A cleaner storefront foundation for product browsing and online sales.', technologies: ['Shopify', 'Liquid']
   },
   {
-    slug: 'elprof10',
-    name: 'ELPROF10',
-    type: 'DIGITAL EXPERIENCE',
-    url: 'https://elprof10.com',
-    featured: false,
+    slug: 'elprof10', name: 'Elprof10', category: ['web', 'uiux'], tag: 'Digital experience', url: 'https://elprof10.com', featured: false,
     description: 'Digital product and web experience work focused on usability, presentation and a modern responsive interface.',
-    role: 'Web development · UX/UI',
-    services: ['Web development', 'UX/UI', 'Responsive design', 'Optimization'],
-    outcome: 'A stronger digital experience designed to communicate clearly across devices.',
+    role: 'Web development · UI/UX', services: ['Web development', 'UI/UX design', 'Responsive design', 'Performance review'],
+    challenge: 'The site needed a modern, responsive interface that communicates clearly on every device.',
+    approach: ['Rebuilt core pages with a responsive, component-based layout.', 'Improved usability and visual hierarchy across the site.'],
+    outcome: 'A stronger digital experience designed to communicate clearly across devices.', technologies: ['HTML/CSS', 'JavaScript']
   },
   {
-    slug: 'royal-watch',
-    name: 'ROYAL WATCH',
-    type: 'LUXURY · E-COMMERCE',
-    url: 'http://royalwatch.art/',
-    featured: false,
-    description: 'Luxury watch presentation and commerce with emphasis on premium product storytelling and visual hierarchy.',
-    role: 'Luxury e-commerce · Product presentation',
-    services: ['Luxury UI', 'E-commerce', 'Product storytelling', 'Visual hierarchy'],
-    outcome: 'A premium digital direction for presenting luxury products with clarity and confidence.',
+    slug: 'royal-watch', name: 'Royal Watch', category: ['ecommerce', 'uiux'], tag: 'Luxury · Product presentation', url: 'http://royalwatch.art/', featured: false,
+    description: 'Luxury watch presentation and commerce, built around premium product storytelling and visual hierarchy.',
+    role: 'Luxury e-commerce · Product presentation', services: ['Luxury UI', 'E-commerce build', 'Product storytelling', 'Visual hierarchy'],
+    challenge: 'The product range needed a presentation that matched the price point and craftsmanship of the watches.',
+    approach: ['Designed product pages around photography, materials and detail rather than generic templates.', 'Built a visual hierarchy that guides attention to the product first.'],
+    outcome: 'A premium digital direction for presenting luxury products with clarity and confidence.', technologies: ['E-commerce platform', 'CSS']
   },
 ];
 
 export const aiProjects = [
-  ['AI CUSTOMER SUPPORT', 'Conversational AI · Customer experience'],
-  ['AI DOCUMENT ASSISTANT', 'RAG · Document intelligence · Knowledge retrieval'],
-  ['DATA ANALYTICS', 'Business intelligence · Data-driven decisions'],
-  ['AUTOMATION SYSTEM', 'Python · Workflow automation · Productivity'],
-  ['LEAD GENERATION', 'Data · Prospecting · Automation · Growth'],
+  { name: 'AI Customer Support', sub: 'Conversational AI for customer experience' },
+  { name: 'AI Document Assistant', sub: 'RAG · document intelligence · knowledge retrieval' },
+  { name: 'Data Analytics', sub: 'Business intelligence for clearer decisions' },
+  { name: 'Automation Systems', sub: 'Python workflows that remove repetitive work' },
+  { name: 'Lead Generation', sub: 'Data, prospecting and growth automation' },
 ] as const;
 
 export const services = [
-  {
-    number: '01',
-    label: 'BUILD',
-    title: 'Software Engineering',
-    text: 'Websites, web apps, APIs, e-commerce, Shopify, WordPress, WooCommerce and business automation.',
-  },
-  {
-    number: '02',
-    label: 'INTELLIGENCE',
-    title: 'AI & Data',
-    text: 'AI applications, chatbots, RAG, document intelligence, analytics, automation and intelligent workflows.',
-  },
-  {
-    number: '03',
-    label: 'EXPERIENCE',
-    title: 'UI/UX & 3D',
-    text: 'Luxury interfaces, product experiences, Three.js, 3D websites, virtual try-on and interactive commerce.',
-  },
-  {
-    number: '04',
-    label: 'GROW',
-    title: 'Marketing & Commerce',
-    text: 'Product photography direction, targeting, conversion, analytics, data entry and e-commerce growth.',
-  },
+  { id: 'software', number: '01', label: 'BUILD', title: 'Software Engineering', text: 'Websites, web apps, APIs, e-commerce, Shopify, WordPress, WooCommerce and business automation.' },
+  { id: 'ai', number: '02', label: 'INTELLIGENCE', title: 'AI & Data', text: 'AI applications, chatbots, RAG, document intelligence, analytics, automation and intelligent workflows.' },
+  { id: 'uiux', number: '03', label: 'EXPERIENCE', title: 'UI/UX & 3D', text: 'Luxury interfaces, product experiences, Three.js, 3D websites, virtual try-on and interactive commerce.' },
+  { id: 'marketing', number: '04', label: 'GROW', title: 'Marketing & Commerce', text: 'Product photography direction, targeting, conversion, analytics, data entry and e-commerce growth.' },
+  { id: 'web', number: '05', label: 'WEB', title: 'Web Development', text: 'Next.js and React builds engineered for speed, accessibility and long-term maintainability.' },
+  { id: 'ecommerce', number: '06', label: 'COMMERCE', title: 'E-commerce & Shopify', text: 'Shopify, WooCommerce and custom commerce builds focused on product presentation and checkout clarity.' },
+  { id: 'data', number: '07', label: 'DATA', title: 'Data Management', text: 'Data entry, cleanup and structuring so decisions are made on information you can actually trust.' },
+  { id: 'redesign', number: '08', label: 'OPTIMIZE', title: 'Website Redesign', text: 'Audits of existing sites — UX, performance and conversion — followed by focused improvements.' },
+  { id: 'growth', number: '09', label: 'GROW', title: 'Business Growth', text: 'Connecting the technical build to the commercial goal, so the site is judged by what it earns, not just how it looks.' },
+] as const;
+
+export const process = [
+  { step: '01', title: 'Discover', text: 'Understand the brand, the product and the business problem before any design starts.' },
+  { step: '02', title: 'Design', text: 'Map the experience — architecture, UX and visual direction — grounded in how customers actually behave.' },
+  { step: '03', title: 'Build', text: 'Engineer the product on a fast, accessible, maintainable foundation.' },
+  { step: '04', title: 'Grow', text: 'Optimise, market and refine after launch, so the site keeps earning its keep.' },
 ] as const;
