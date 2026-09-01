@@ -9,7 +9,18 @@ export const metadata: Metadata = {
     template: '%s — Ahmed Mohyeldin',
   },
   description: site.description,
-  keywords: ['Ahmed Mohyeldin', 'Software Engineer', 'AI', 'Web Development', 'UI UX', 'Three.js', '3D', 'E-Commerce', 'Shopify', 'Growth'],
+  keywords: [
+    'Ahmed Mohyeldin',
+    'Software Engineer',
+    'AI',
+    'Web Development',
+    'UI UX',
+    'Three.js',
+    '3D',
+    'E-Commerce',
+    'Shopify',
+    'Growth',
+  ],
   authors: [{ name: site.name }],
   creator: site.name,
   openGraph: {
@@ -17,11 +28,19 @@ export const metadata: Metadata = {
     description: site.description,
     type: 'website',
     siteName: site.name,
+    url: 'https://ahmed-mohy-portfolio.vercel.app',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Ahmed Mohyeldin — Software · AI · Experience · Growth',
+    description: site.description,
   },
   robots: { index: true, follow: true },
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <body>{children}</body>
