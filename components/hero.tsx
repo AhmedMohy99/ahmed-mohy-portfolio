@@ -5,32 +5,23 @@ import { Environment, Float, MeshTransmissionMaterial, Sparkles, TorusKnot } fro
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 
-function Sculpture() {
+function Sculpture({ reducedMotion }: { reducedMotion: boolean }) {
   const group = useRef<THREE.Group>(null);
 
   useFrame((state, delta) => {
     if (!group.current) return;
-    group.current.rotation.y += delta * 0.16;
-    group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, state.pointer.y * 0.06, 0.025);
-    group.current.position.x = THREE.MathUtils.lerp(group.current.position.x, state.pointer.x * 0.28, 0.025);
-    group.current.position.y = THREE.MathUtils.lerp(group.current.position.y, state.pointer.y * 0.18, 0.025);
+    if (!reducedMotion) group.current.rotation.y += delta * 0.16;
+    group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, reducedMotion ? 0 : state.pointer.y * 0.06, 0.025);
+    group.current.position.x = THREE.MathUtils.lerp(group.current.position.x, reducedMotion ? 0 : state.pointer.x * 0.28, 0.025);
+    group.current.position.y = THREE.MathUtils.lerp(group.current.position.y, reducedMotion ? 0 : state.pointer.y * 0.18, 0.025);
   });
 
   return (
-    <Float speed={0.75} rotationIntensity={0.12} floatIntensity={0.35}>
+    <Float enabled={!reducedMotion} speed={0.75} rotationIntensity={0.12} floatIntensity={0.35}>
       <group ref={group}>
         <mesh rotation={[0.35, 0, 0]}>
           <icosahedronGeometry args={[1.55, 4]} />
-          <MeshTransmissionMaterial
-            backside
-            thickness={1.8}
-            roughness={0.12}
-            transmission={1}
-            ior={1.42}
-            chromaticAberration={0.035}
-            anisotropy={0.55}
-            color="#d8d0bf"
-          />
+          <MeshTransmissionMaterial backside thickness={1.8} roughness={0.12} transmission={1} ior={1.42} chromaticAberration={0.035} anisotropy={0.55} color="#d8d0bf" />
         </mesh>
         <TorusKnot args={[1.82, 0.045, 160, 10, 2, 3]} rotation={[Math.PI / 2, 0, 0]}>
           <meshStandardMaterial color="#b9aa8e" metalness={0.9} roughness={0.2} emissive="#3b3328" emissiveIntensity={0.35} />
@@ -51,14 +42,14 @@ function Scene({ reducedMotion }: { reducedMotion: boolean }) {
       <pointLight position={[3, 3, 4]} intensity={15} />
       <pointLight position={[-4, -2, 2]} intensity={6} />
       <spotLight position={[0, 5, 4]} intensity={10} angle={0.45} penumbra={1} />
-      <Sculpture />
+      <Sculpture reducedMotion={reducedMotion} />
       {!reducedMotion && <Sparkles count={70} scale={7} size={1.4} speed={0.18} opacity={0.28} />}
       <Environment preset="studio" />
     </>
   );
 }
 
-export function Hero3D() {
+export function Hero3D({ disabled = false }: { disabled?: boolean }) {
   const [reducedMotion, setReducedMotion] = useState(false);
 
   useEffect(() => {
@@ -68,6 +59,8 @@ export function Hero3D() {
     media.addEventListener('change', update);
     return () => media.removeEventListener('change', update);
   }, []);
+
+  if (disabled) return <div className="absolute inset-0 bg-[radial-gradient(circle_at_55%_35%,rgba(185,170,142,.22),transparent_35%),linear-gradient(135deg,#1b1a18,#2a2721)]" aria-hidden="true" />;
 
   return (
     <div className="absolute inset-0" aria-hidden="true">
