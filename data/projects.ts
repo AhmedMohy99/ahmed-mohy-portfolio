@@ -4,8 +4,8 @@ export type Project = {
   slug: string; name: string; category: ProjectCategory[]; tag: string; url: string; featured: boolean; description: string; role: string; services: string[]; challenge: string; approach: string[]; outcome: string; technologies: string[]; image: string; imageAlt: string;
 };
 
-// Real live-homepage screenshots. Thum.io renders the actual project URL so the portfolio never falls back to generic stock photography.
-const liveShot = (url: string) => `https://image.thum.io/get/width/1200/crop/900/noanimate/maxAge/168/${url}`;
+// Real live-homepage screenshots. The source page is rendered directly so the portfolio uses the actual project homepage rather than stock imagery.
+const liveShot = (url: string) => `https://image.thum.io/get/width/1200/crop/675/noanimate/maxAge/168/${url}`;
 
 export const projects: Project[] = [
   { slug:'laro-cosmetics', name:'LARO Cosmetics', category:['ecommerce','shopify','uiux'], tag:'Beauty · Shopify', url:'https://laro-cosmetics.com', featured:true, image:liveShot('https://laro-cosmetics.com/'), imageAlt:'Live homepage preview of LARO Cosmetics', description:'A beauty commerce storefront rebuilt around product clarity — cleaner navigation, faster browsing and a shopping journey that respects the product.', role:'Shopify development · UI/UX · Conversion', services:['Shopify build','UI/UX design','Storefront UX','Product merchandising','Conversion review'], challenge:'The catalog was hard to browse on mobile, and the storefront did not reflect the quality of the products it was selling.', approach:['Restructured navigation and collections around how customers actually shop for beauty products.','Rebuilt product and collection templates for a calmer, more premium presentation.','Tightened the mobile checkout path to remove friction between browsing and buying.'], outcome:'A storefront that feels considered rather than templated, with a clearer path from discovery to checkout.', technologies:['Shopify','Liquid','JavaScript','CSS'] },
