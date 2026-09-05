@@ -2,8 +2,9 @@ import type { Metadata } from 'next';
 import { site } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'About',
-  description: 'About Ahmed Mohyeldin — software engineer working across AI, UI/UX, 3D, e-commerce and growth.',
+  title: 'About Ahmed Mohy Eldin Abdrabbo',
+  description: 'Learn about Ahmed Mohy Eldin Abdrabbo, a website designer and software engineer in Egypt working across web development, AI, UI/UX, 3D and e-commerce.',
+  alternates: { canonical: '/about' },
 };
 
 const stack = ['Next.js', 'React', 'TypeScript', 'Python', 'AI', 'Three.js', 'GSAP', 'Shopify', 'WordPress', 'WooCommerce', 'Blender', 'UI/UX', 'Analytics'];
