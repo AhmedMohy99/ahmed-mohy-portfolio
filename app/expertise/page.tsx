@@ -2,8 +2,9 @@ import type { Metadata } from 'next';
 import { services } from '@/data/projects';
 
 export const metadata: Metadata = {
-  title: 'Expertise',
-  description: 'Software engineering, AI, UI/UX, 3D, e-commerce and growth services by Ahmed Mohyeldin.',
+  title: 'Website Design, Development & AI Expertise',
+  description: 'Website design, development, redesign, AI, UI/UX, 3D, Shopify, e-commerce and digital growth expertise by Ahmed Mohy Eldin Abdrabbo in Egypt.',
+  alternates: { canonical: '/expertise' },
 };
 
 export default function ExpertisePage() {
