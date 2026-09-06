@@ -23,18 +23,17 @@ export function PortfolioChatbot() {
 
   useEffect(() => { if (window.localStorage.getItem('portfolio-chat-lang') === 'ar') setLang('ar'); }, []);
   useEffect(() => { endRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [messages, loading]);
-
   const switchLanguage = () => { const next = lang === 'en' ? 'ar' : 'en'; setLang(next); window.localStorage.setItem('portfolio-chat-lang', next); };
 
   const ask = async (text: string) => {
     const value = text.trim();
     if (!value || loading) return;
     setInput('');
-    const nextMessages = [...messages, { role: 'user' as const, text: value }];
-    setMessages(nextMessages);
+    const history = messages.slice(-MAX_HISTORY).map((item) => ({ role: item.role, content: item.text }));
+    setMessages((current) => [...current, { role: 'user', text: value }]);
     setLoading(true);
     try {
-      const response = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: value, lang, messages: nextMessages.slice(-MAX_HISTORY).map((item) => ({ role: item.role, content: item.text })) }) });
+      const response = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: value, lang, messages: history }) });
       const data = await response.json();
       setMessages((current) => [...current, { role: 'assistant', text: data.reply || t.welcome }]);
     } catch {
