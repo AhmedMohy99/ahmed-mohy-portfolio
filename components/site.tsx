@@ -3,6 +3,7 @@
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import { ArrowDown, ArrowUpRight, Check, Menu, MessageCircle, MousePointer2, X } from 'lucide-react';
 import { Hero3D } from './hero';
+import { PortfolioChatbot } from './portfolio-chatbot';
 import { aiProjects, process, projects, services } from '@/data/projects';
 import { site } from '@/lib/site';
 
@@ -122,6 +123,7 @@ export default function Site() {
       <section id="contact" className="section-dark py-28 md:py-40" aria-labelledby="contact-title"><div className="container"><div className="grid gap-14 md:grid-cols-[1.1fr_.9fr] md:items-end"><div><div className="label mb-7">Start a conversation</div><h2 id="contact-title" className="display section-title">LET&apos;S BUILD<br /><span className="serif-italic">SOMETHING.</span></h2></div><div><p className="max-w-xl leading-relaxed opacity-70">Have a product, store, AI idea or digital experience in mind? Tell me what you&apos;re building and I&apos;ll help turn it into a clear next step.</p><form onSubmit={handleInquiry} className="mt-8 flex flex-col gap-3 sm:flex-row"><label className="sr-only" htmlFor="email">Your email</label><input id="email" type="email" required value={email} onChange={(event) => setEmail(event.target.value)} placeholder="Your email" className="min-h-12 flex-1 rounded-full border border-white/20 bg-white/5 px-5 text-white outline-none placeholder:text-white/40 focus:border-white/50" /><button type="submit" className="btn btn-primary min-h-12">{sent ? <><Check size={15} /> Sent</> : <>Send inquiry <ArrowUpRight size={15} /></>}</button></form><a href={site.whatsapp} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex items-center gap-2 text-sm opacity-70 transition-opacity hover:opacity-100"><MessageCircle size={15} /> Prefer WhatsApp? Let&apos;s talk.</a></div></div></div></section>
 
       <footer className="border-t border-[var(--line)] bg-[var(--bg)]"><div className="container flex flex-col gap-4 py-8 text-sm text-[var(--muted)] md:flex-row md:items-center md:justify-between"><span>© {new Date().getFullYear()} Ahmed Mohyeldin. All rights reserved.</span><span>Software · AI · UI/UX · 3D · Growth</span></div></footer>
+      <PortfolioChatbot />
     </main>
   );
 }
