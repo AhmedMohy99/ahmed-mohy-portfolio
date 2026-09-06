@@ -1,3 +1,13 @@
 import type { NextConfig } from 'next';
-const nextConfig:NextConfig={reactStrictMode:true,images:{remotePatterns:[{protocol:'https',hostname:'images.unsplash.com'}]}};
+
+const nextConfig: NextConfig = {
+  reactStrictMode: true,
+  images: {
+    remotePatterns: [
+      { protocol: 'https', hostname: 'images.unsplash.com' },
+      { protocol: 'https', hostname: 'image.thum.io' },
+    ],
+  },
+};
+
 export default nextConfig;
