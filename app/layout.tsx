@@ -33,8 +33,7 @@ export const metadata: Metadata = {
     default: 'Ahmed Mohy Eldin Abdrabbo | Software Engineer & AI Developer',
     template: '%s | Ahmed Mohy Eldin Abdrabbo',
   },
-  description:
-    'Ahmed Mohy Eldin Abdrabbo is a software engineer and AI developer in Egypt creating high-performance websites, e-commerce experiences, AI-powered products, UI/UX systems and immersive 3D web experiences.',
+  description: site.description,
   keywords,
   authors: [{ name: site.name, url: siteUrl }],
   creator: site.name,
@@ -48,26 +47,22 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Ahmed Mohy Eldin Abdrabbo | Software Engineer & AI Developer',
-    description:
-      'Professional website design, development, AI, e-commerce, UI/UX and 3D digital experiences by Ahmed Mohy Eldin Abdrabbo.',
+    description: 'Professional website design, development, AI, e-commerce, UI/UX and 3D digital experiences by Ahmed Mohy Eldin Abdrabbo.',
     type: 'website',
-    siteName: 'Ahmed Mohy Eldin Abdrabbo',
+    siteName: site.name,
     url: siteUrl,
     locale: 'en_US',
-    images: [
-      {
-        url: '/opengraph-image',
-        width: 1200,
-        height: 630,
-        alt: 'Ahmed Mohy Eldin Abdrabbo — Software Engineer, AI & Digital Experience',
-      },
-    ],
+    images: [{
+      url: '/opengraph-image',
+      width: 1200,
+      height: 630,
+      alt: 'Ahmed Mohy Eldin Abdrabbo — Software Engineer, AI & Digital Experience',
+    }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Ahmed Mohy Eldin Abdrabbo | Software Engineer & AI Developer',
-    description:
-      'Website design, development, AI, e-commerce, UI/UX and 3D digital experiences.',
+    description: 'Website design, development, AI, e-commerce, UI/UX and 3D digital experiences.',
     images: ['/opengraph-image'],
   },
   robots: {
@@ -112,7 +107,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       '3D Web Experiences',
       'Digital Growth',
     ],
-    sameAs: [site.github, site.linkedin, site.aiPortfolio, site.linktree],
+    sameAs: [site.github, site.linkedin, site.instagram, site.linktree],
   };
 
   const website = {
@@ -133,8 +128,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     '@id': `${siteUrl}/#professional-service`,
     name: 'Ahmed Mohy Eldin Abdrabbo — Software Engineering & AI',
     url: siteUrl,
-    description:
-      'Professional software engineering, website design, development, redesign, Shopify, e-commerce, AI web development, UI/UX and 3D web experiences.',
+    description: 'Professional software engineering, website design, development, redesign, Shopify, e-commerce, AI web development, UI/UX and 3D web experiences.',
     provider: { '@id': `${siteUrl}/#person` },
     areaServed: [
       { '@type': 'Country', name: 'Egypt' },
