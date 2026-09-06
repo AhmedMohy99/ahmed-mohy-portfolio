@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 
 const OWNER_NAME = 'Ahmed Mohy';
 const EMAIL = 'Ahmed171684@gmail.com';
-const WHATSAPP = '01016286261';
 const WHATSAPP_LINK = 'https://wa.me/201016286261';
 const INSTAGRAM = 'https://www.instagram.com/ahmed.abdrabboo/';
 const GITHUB = 'https://github.com/AhmedMohy99';
@@ -55,7 +54,7 @@ export async function POST(request: Request) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: process.env.OPENAI_MODEL || 'gpt-5-mini',
+        model: process.env.OPENAI_MODEL || 'gpt-5.6-luna',
         input: [
           {
             role: 'system',
@@ -63,7 +62,6 @@ export async function POST(request: Request) {
           },
           { role: 'user', content: message },
         ],
-        temperature: 0.4,
       }),
     });
 
