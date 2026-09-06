@@ -4,7 +4,30 @@ import { site } from '@/lib/site';
 type Language = 'en' | 'ar';
 
 const MAX_MESSAGE_LENGTH = 2000;
+const MAX_REQUESTS_PER_WINDOW = 12;
+const RATE_LIMIT_WINDOW_MS = 60_000;
+const OPENAI_TIMEOUT_MS = 12_000;
 const MODEL = process.env.OPENAI_MODEL || 'gpt-5.6-luna';
+
+const rateLimit = new Map<string, { count: number; resetAt: number }>();
+
+function getClientKey(request: Request) {
+  return request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'anonymous';
+}
+
+function isRateLimited(request: Request) {
+  const now = Date.now();
+  const key = getClientKey(request);
+  const current = rateLimit.get(key);
+
+  if (!current || current.resetAt <= now) {
+    rateLimit.set(key, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
+    return false;
+  }
+
+  current.count += 1;
+  return current.count > MAX_REQUESTS_PER_WINDOW;
+}
 
 function faqReply(text: string, lang: Language) {
   const normalized = text.toLowerCase();
@@ -53,6 +76,14 @@ export async function POST(request: Request) {
   let lang: Language = 'en';
 
   try {
+    if (isRateLimited(request)) {
+      return jsonResponse(
+        lang === 'ar' ? 'تم الوصول إلى الحد المؤقت للطلبات. حاول مرة أخرى بعد دقيقة.' : 'Too many requests. Please try again in a minute.',
+        'faq',
+        429,
+      );
+    }
+
     if (!request.headers.get('content-type')?.includes('application/json')) {
       return jsonResponse('Invalid request.', 'faq', 415);
     }
@@ -73,32 +104,40 @@ export async function POST(request: Request) {
     const apiKey = process.env.OPENAI_API_KEY?.trim();
     if (!apiKey) return jsonResponse(faqReply(message, lang), 'faq');
 
-    const response = await fetch('https://api.openai.com/v1/responses', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: MODEL,
-        input: [
-          {
-            role: 'system',
-            content: `You are ${site.shortName}'s professional portfolio assistant. Answer in ${lang === 'ar' ? 'Arabic' : 'English'}. Be concise, helpful and accurate. ${site.shortName} builds websites, web apps, e-commerce stores, Shopify/WooCommerce experiences, AI applications, chatbots, RAG systems, data dashboards, automation, UI/UX and 3D experiences. For contact, use ${site.email}, ${site.whatsapp}, ${site.linkedin}, ${site.github}, or ${site.instagram}. Do not invent client results, prices, technologies or availability.`,
-          },
-          { role: 'user', content: message },
-        ],
-      }),
-    });
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), OPENAI_TIMEOUT_MS);
 
-    if (!response.ok) return jsonResponse(faqReply(message, lang), 'faq');
+    try {
+      const response = await fetch('https://api.openai.com/v1/responses', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          model: MODEL,
+          input: [
+            {
+              role: 'system',
+              content: `You are ${site.shortName}'s professional portfolio assistant. Answer in ${lang === 'ar' ? 'Arabic' : 'English'}. Be concise, helpful and accurate. ${site.shortName} builds websites, web apps, e-commerce stores, Shopify/WooCommerce experiences, AI applications, chatbots, RAG systems, data dashboards, automation, UI/UX and 3D experiences. For contact, use ${site.email}, ${site.whatsapp}, ${site.linkedin}, ${site.github}, or ${site.instagram}. Do not invent client results, prices, technologies or availability.`,
+            },
+            { role: 'user', content: message },
+          ],
+        }),
+        signal: controller.signal,
+      });
 
-    const data: unknown = await response.json();
-    const outputText = data && typeof data === 'object' && 'output_text' in data && typeof data.output_text === 'string'
-      ? data.output_text
-      : '';
+      if (!response.ok) return jsonResponse(faqReply(message, lang), 'faq');
 
-    return jsonResponse(outputText || faqReply(message, lang), outputText ? 'ai' : 'faq');
+      const data: unknown = await response.json();
+      const outputText = data && typeof data === 'object' && 'output_text' in data && typeof data.output_text === 'string'
+        ? data.output_text.trim().slice(0, 4000)
+        : '';
+
+      return jsonResponse(outputText || faqReply(message, lang), outputText ? 'ai' : 'faq');
+    } finally {
+      clearTimeout(timeout);
+    }
   } catch {
     return jsonResponse(faqReply(message, lang), 'faq');
   }
