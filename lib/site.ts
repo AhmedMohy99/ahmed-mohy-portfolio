@@ -5,10 +5,9 @@ export const site = {
   description:
     'Ahmed Mohy Eldin Abdrabbo is a software engineer building premium digital products across AI, web development, UI/UX, 3D, e-commerce and digital growth.',
   url: 'https://ahmedmohyeldinabdrabbo.online',
-  email: 'Ahmed171684@gmail.com',
-  whatsapp: 'https://wa.me/201016286261',
+  whatsapp: 'https://api.whatsapp.com/send/?phone=201016286261&text&type=phone_number&app_absent=0',
   linkedin: 'https://www.linkedin.com/in/ahmed-mohy-83b447220/',
   github: 'https://github.com/AhmedMohy99',
-  instagram: 'https://www.instagram.com/ahmed.abdrabboo/',
+  aiPortfolio: 'https://ai-chatbot-portfolio-ahmed-mohy.vercel.app/',
   linktree: 'https://linktr.ee/Ahmed.Mohyeldin',
 } as const;

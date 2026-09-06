@@ -8,9 +8,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "typecheck": "tsc --noEmit",
-    "check": "npm run typecheck && npm run build"
+    "start": "next start"
   },
   "dependencies": {
     "@react-three/drei": "10.7.6",
