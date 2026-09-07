@@ -23,12 +23,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/services/shopify',
     '/services/ai-web-development',
   ];
-  const projectRoutes = projects.map((project) => `/work/${project.slug}`);
-  const insightRoutes = insights.map((slug) => `/insights/${slug}`);
 
-  return [...staticRoutes, ...projectRoutes, ...insightRoutes].map((path) => ({
+  const projectRoutes = projects.map(
+    (project) => `/work/${project.slug}`,
+  );
+
+  const insightRoutes = insights.map(
+    (slug) => `/insights/${slug}`,
+  );
+
+  const routes = [
+    ...staticRoutes,
+    ...projectRoutes,
+    ...insightRoutes,
+  ];
+
+  return routes.map((path) => ({
     url: `${site.url}${path}`,
-    changeFrequency: path === '' ? 'weekly' : 'monthly',
+    changeFrequency: path === '' ? ('weekly' as const) : ('monthly' as const),
     priority:
       path === ''
         ? 1
