@@ -1,9 +1,9 @@
 export const site = {
   name: 'Ahmed Mohy Eldin Abdrabbo',
   shortName: 'Ahmed Mohy',
-  title: 'Ahmed Mohy Eldin Abdrabbo — Software Engineer · AI · Digital Experience',
+  title: 'Ahmed Mohy Eldin Abdrabbo — IT & Digital Solutions Specialist',
   description:
-    'Ahmed Mohy Eldin Abdrabbo is a software engineer building premium digital products across AI, web development, UI/UX, 3D, e-commerce and digital growth.',
+    'Ahmed Mohy Eldin Abdrabbo is an IT and digital solutions specialist building web products, AI experiences, e-commerce platforms, UI/UX systems, 3D experiences and business automation.',
   url: 'https://ahmedmohyeldinabdrabbo.online',
   email: 'Ahmed171684@gmail.com',
   whatsapp: 'https://wa.me/201016286261',

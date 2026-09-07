@@ -1,24 +1,45 @@
-# Ahmed Mohyeldin — Premium Portfolio
+# Ahmed Mohyeldin — Portfolio
 
-A from-scratch Next.js portfolio for Ahmed Mohyeldin: Software × AI × Experience × Growth.
+A production-focused Next.js portfolio for Ahmed Mohyeldin, an IT and digital solutions specialist working across AI, web development, e-commerce, UI/UX, 3D and business automation.
 
 ## Stack
-- Next.js App Router + TypeScript
-- React Three Fiber / Three.js
-- GSAP-ready architecture
-- Tailwind CSS
-- Vercel-ready
 
-## Run
+- Next.js App Router + TypeScript
+- React 19
+- React Three Fiber / Three.js
+- Tailwind CSS 4
+- GSAP / Lenis-ready interaction layer
+- Vercel-ready deployment
+
+## Features
+
+- Responsive portfolio homepage
+- Work filtering and case-study pages
+- AI portfolio assistant with FAQ fallback
+- Bounded chat history and API rate limiting
+- Accessible reduced-3D mode
+- SEO metadata, sitemap, robots and structured data
+- Optimized remote project screenshots
+- Project inquiry email flow and WhatsApp contact link
+
+## Run locally
+
+```bash
 npm install
 npm run dev
+```
 
-Then open http://localhost:3000
+Then open `http://localhost:3000`.
 
-## Next production steps
-1. Add optimized project screenshots/videos in `public/projects`.
-2. Replace the placeholder 3D object with a custom GLB/GLTF asset.
-3. Add dynamic `/work/[slug]` case-study pages.
-4. Add contact form/server action and analytics.
-5. Add an AI "Ask Ahmed" assistant.
-6. Connect a new GitHub repository and deploy to Vercel.
+## Validate
+
+```bash
+npm run typecheck
+npm run build
+```
+
+The GitHub Actions workflow runs both checks on pushes to `main` and pull requests targeting `main`.
+
+## Environment
+
+The AI assistant can use the OpenAI API when `OPENAI_API_KEY` is configured. If the key is not available, the assistant falls back to the built-in FAQ responses.
