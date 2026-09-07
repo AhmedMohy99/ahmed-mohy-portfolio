@@ -4,7 +4,7 @@ export type Project = {
   slug: string; name: string; category: ProjectCategory[]; tag: string; url: string; featured: boolean; description: string; role: string; services: string[]; challenge: string; approach: string[]; outcome: string; technologies: string[]; image: string; imageAlt: string;
 };
 
-// Real live-homepage screenshots. The source page is rendered directly so the portfolio uses the actual project homepage rather than stock imagery.
+// Live homepage screenshots generated from each real project URL. They provide a reliable visual preview when a site blocks iframe embedding.
 const liveShot = (url: string) => `https://image.thum.io/get/width/1200/crop/675/noanimate/maxAge/168/${url}`;
 
 export const projects: Project[] = [
