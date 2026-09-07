@@ -17,7 +17,6 @@ export default function ContactPage() {
         <a href={site.whatsapp} target="_blank" rel="noreferrer">WhatsApp ↗</a>
         <a href={site.linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a>
         <a href={site.github} target="_blank" rel="noreferrer">GitHub ↗</a>
-        <a href={site.aiPortfolio} target="_blank" rel="noreferrer">AI Portfolio ↗</a>
         <a href={site.linktree} target="_blank" rel="noreferrer">Linktree ↗</a>
       </div>
     </main>
