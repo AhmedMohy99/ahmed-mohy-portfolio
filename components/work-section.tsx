@@ -20,23 +20,54 @@ function ProjectPreview({ project }: { project: (typeof projects)[number] }) {
   const [failed, setFailed] = useState(false);
 
   return (
-    <div className="project-visual relative overflow-hidden rounded-[1.25rem] border border-[var(--line)] bg-[var(--panel-2)]">
-      <div className="relative aspect-[16/10] w-full overflow-hidden">
+    <a
+      href={project.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`Open ${project.name} live website`}
+      className="project-visual group relative block overflow-hidden rounded-[1.25rem] border border-[var(--line)] bg-[var(--panel-2)]"
+    >
+      <div className="relative aspect-[16/10] w-full overflow-hidden bg-[var(--charcoal)]">
+        {!failed && (
+          <Image
+            src={project.image}
+            alt={project.imageAlt}
+            fill
+            sizes="(max-width: 768px) 100vw, 42vw"
+            loading="lazy"
+            className="object-cover scale-110 opacity-45 blur-2xl transition-transform duration-700 group-hover:scale-[1.14]"
+            aria-hidden="true"
+          />
+        )}
+        <div className="absolute inset-0 bg-black/10" />
+
         {failed ? (
           <div className="absolute inset-0 flex flex-col items-center justify-center bg-[radial-gradient(circle_at_50%_35%,rgba(155,128,85,.24),transparent_38%),linear-gradient(135deg,var(--charcoal),#34322d)] p-8 text-center text-[var(--on-charcoal)]">
-            <span className="text-[10px] uppercase tracking-[0.25em] text-white/55">Live site</span>
+            <span className="text-[10px] uppercase tracking-[0.25em] text-white/55">Website preview</span>
             <span className="display mt-4 text-4xl">{project.name}</span>
-            <span className="mt-3 max-w-xs text-xs leading-relaxed text-white/60">The homepage preview is temporarily unavailable. Open the live website to view the current site.</span>
+            <span className="mt-3 max-w-xs text-xs leading-relaxed text-white/60">Preview unavailable. Open the live website to view the current site.</span>
           </div>
         ) : (
-          <Image src={project.image} alt={project.imageAlt} fill sizes="(max-width: 768px) 100vw, 42vw" loading="lazy" className="object-cover transition-transform duration-700 group-hover:scale-[1.045]" onError={() => setFailed(true)} />
+          <div className="absolute inset-0 flex items-center justify-center p-3 sm:p-5">
+            <div className="relative h-full w-full overflow-hidden rounded-lg bg-white shadow-2xl ring-1 ring-black/10">
+              <Image
+                src={project.image}
+                alt={project.imageAlt}
+                fill
+                sizes="(max-width: 768px) 94vw, 40vw"
+                loading="lazy"
+                className="object-contain transition-transform duration-700 group-hover:scale-[1.02]"
+                onError={() => setFailed(true)}
+              />
+            </div>
+          </div>
         )}
       </div>
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-center justify-between gap-3 bg-gradient-to-t from-black/80 via-black/45 to-transparent px-5 pb-4 pt-10 text-white">
-        <span className="text-xs font-medium uppercase tracking-[0.18em]">Live homepage preview</span>
-        <span className="inline-flex items-center gap-1 text-xs opacity-90">Current site <ArrowUpRight size={12} /></span>
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-center justify-between gap-3 bg-gradient-to-t from-black/85 via-black/50 to-transparent px-5 pb-4 pt-12 text-white">
+        <span className="text-xs font-medium uppercase tracking-[0.18em]">Website preview</span>
+        <span className="inline-flex items-center gap-1 text-xs opacity-90">Open live site <ArrowUpRight size={12} /></span>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -89,7 +120,7 @@ export function WorkSection() {
               <div className="label text-[var(--bronze)]">Archive · Previous client work</div>
               <h3 id="archived-title" className="display mt-3 text-4xl md:text-5xl">ARCHIVED <span className="serif-italic">WORK.</span></h3>
             </div>
-            <p className="max-w-md text-sm leading-relaxed text-[var(--muted)]">Earlier projects, preserved as case studies and live homepage previews. They remain part of the work history, but sit outside the current selected work.</p>
+            <p className="max-w-md text-sm leading-relaxed text-[var(--muted)]">Earlier projects, preserved as case studies and website previews. They remain part of the work history, but sit outside the current selected work.</p>
           </div>
           <div className="mt-10 overflow-hidden rounded-[1.5rem] border border-[var(--line)] bg-[var(--panel)] px-5 md:px-8">
             {archivedProjects.map((project) => <ProjectCard key={project.slug} project={project} archived />)}
