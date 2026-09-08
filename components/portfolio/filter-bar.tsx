@@ -7,16 +7,16 @@ type FilterBarProps = {
   onChange: (category: PortfolioCategory) => void;
 };
 
-const filters: Array<{ id: PortfolioCategory; label: string }> = [
-  { id: 'all', label: 'All work' },
-  { id: 'full-stack-ai', label: 'Full-Stack & AI' },
-  { id: 'ecommerce', label: 'E-commerce' },
-  { id: '3d-web', label: '3D & Web Graphics' },
+const filters: Array<{ id: PortfolioCategory; label: string; shortLabel: string }> = [
+  { id: 'all', label: 'All work', shortLabel: 'All' },
+  { id: 'full-stack-ai', label: 'Full-Stack & AI', shortLabel: 'AI & Web' },
+  { id: 'ecommerce', label: 'E-commerce', shortLabel: 'Commerce' },
+  { id: '3d-web', label: '3D & Web Graphics', shortLabel: '3D & Web' },
 ];
 
 export function FilterBar({ active, onChange }: FilterBarProps) {
   return (
-    <div className="flex gap-2 overflow-x-auto pb-2" role="tablist" aria-label="Filter projects">
+    <div className="flex gap-2 overflow-x-auto pb-1" role="tablist" aria-label="Filter projects">
       {filters.map((filter) => {
         const isActive = active === filter.id;
         return (
@@ -26,13 +26,14 @@ export function FilterBar({ active, onChange }: FilterBarProps) {
             role="tab"
             aria-selected={isActive}
             onClick={() => onChange(filter.id)}
-            className={`shrink-0 rounded-full border px-4 py-2 text-xs font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900/20 ${
+            className={`shrink-0 rounded-full border px-4 py-2.5 text-xs font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900/20 ${
               isActive
-                ? 'border-neutral-900 bg-neutral-900 text-white'
-                : 'border-neutral-200 bg-white text-neutral-600 hover:border-neutral-900 hover:text-neutral-900'
+                ? 'border-neutral-950 bg-neutral-950 text-white shadow-sm'
+                : 'border-neutral-200 bg-white text-neutral-600 hover:border-neutral-400 hover:text-neutral-950'
             }`}
           >
-            {filter.label}
+            <span className="sm:hidden">{filter.shortLabel}</span>
+            <span className="hidden sm:inline">{filter.label}</span>
           </button>
         );
       })}
