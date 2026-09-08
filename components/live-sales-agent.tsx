@@ -8,9 +8,11 @@ export function LiveSalesAgent() {
   return (
     <section id="live-sales-agent" className="section-dark border-y border-white/10 py-28 md:py-40" aria-labelledby="live-sales-title">
       {closeBotPixel ? (
-        <Script id="closebot-sales-pixel" strategy="afterInteractive">
-          {closeBotPixel}
-        </Script>
+        <Script
+          id="closebot-sales-pixel"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{ __html: closeBotPixel }}
+        />
       ) : null}
       <div className="container">
         <div className="grid gap-12 lg:grid-cols-[.72fr_1.28fr] lg:items-start">
