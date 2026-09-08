@@ -155,6 +155,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(person) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(website) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(professionalService) }} />
+        <script async src="https://js.hs-scripts.com/149287248.js" />
         <a className="skip-link" href="#top">Skip to main content</a>
         {children}
       </body>
