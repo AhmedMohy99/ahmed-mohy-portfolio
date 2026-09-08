@@ -4,7 +4,6 @@ export type Project = {
   slug: string; name: string; category: ProjectCategory[]; tag: string; url: string; liveUrl: string; featured: boolean; description: string; role: string; services: string[]; challenge: string; approach: string[]; outcome: string; technologies: string[]; image: string; previewImage: string; imageAlt: string;
 };
 
-// Cached homepage screenshots provide a visual fallback when a real site blocks iframe embedding.
 const liveShot = (url: string) => `https://image.thum.io/get/width/1200/crop/675/noanimate/maxAge/168/${url}`;
 
 export const projects: Project[] = [
@@ -21,6 +20,7 @@ export const projects: Project[] = [
 
 export const aiProjects = [
   { name:'AI Customer Support', sub:'Conversational AI for customer experience' },
+  { name:'AI Sales Agents', sub:'Lead capture · qualification · booking · handoff' },
   { name:'AI Document Assistant', sub:'RAG · document intelligence · knowledge retrieval' },
   { name:'Data Analytics', sub:'Business intelligence for clearer decisions' },
   { name:'Automation Systems', sub:'Python workflows that remove repetitive work' },
@@ -30,13 +30,14 @@ export const aiProjects = [
 export const services = [
   {id:'software',number:'01',label:'BUILD',title:'Software Engineering',text:'Websites, web apps, APIs, e-commerce, Shopify, WordPress, WooCommerce and business automation.'},
   {id:'ai',number:'02',label:'INTELLIGENCE',title:'AI & Data',text:'AI applications, chatbots, RAG, document intelligence, analytics, automation and intelligent workflows.'},
-  {id:'uiux',number:'03',label:'EXPERIENCE',title:'UI/UX & 3D',text:'Luxury interfaces, product experiences, Three.js, 3D websites, virtual try-on and interactive commerce.'},
-  {id:'marketing',number:'04',label:'GROW',title:'Marketing & Commerce',text:'Product photography direction, targeting, conversion, analytics, data entry and e-commerce growth.'},
-  {id:'web',number:'05',label:'WEB',title:'Web Development',text:'Next.js and React builds engineered for speed, accessibility and long-term maintainability.'},
-  {id:'ecommerce',number:'06',label:'COMMERCE',title:'E-commerce & Shopify',text:'Shopify, WooCommerce and custom commerce builds focused on product presentation and checkout clarity.'},
-  {id:'data',number:'07',label:'DATA',title:'Data Management',text:'Data entry, cleanup and structuring so decisions are made on information you can actually trust.'},
-  {id:'redesign',number:'08',label:'OPTIMIZE',title:'Website Redesign',text:'Audits of existing sites — UX, performance and conversion — followed by focused improvements.'},
-  {id:'growth',number:'09',label:'GROW',title:'Business Growth',text:'Connecting the technical build to the commercial goal, so the site is judged by what it earns, not just how it looks.'},
+  {id:'sales-ai',number:'03',label:'CONVERT',title:'AI Sales Automation',text:'AI agents for lead capture, qualification, product guidance, appointment booking, follow-up and human handoff.'},
+  {id:'uiux',number:'04',label:'EXPERIENCE',title:'UI/UX & 3D',text:'Luxury interfaces, product experiences, Three.js, 3D websites, virtual try-on and interactive commerce.'},
+  {id:'marketing',number:'05',label:'GROW',title:'Marketing & Commerce',text:'Product photography direction, targeting, conversion, analytics, data entry and e-commerce growth.'},
+  {id:'web',number:'06',label:'WEB',title:'Web Development',text:'Next.js and React builds engineered for speed, accessibility and long-term maintainability.'},
+  {id:'ecommerce',number:'07',label:'COMMERCE',title:'E-commerce & Shopify',text:'Shopify, WooCommerce and custom commerce builds focused on product presentation and checkout clarity.'},
+  {id:'data',number:'08',label:'DATA',title:'Data Management',text:'Data entry, cleanup and structuring so decisions are made on information you can actually trust.'},
+  {id:'redesign',number:'09',label:'OPTIMIZE',title:'Website Redesign',text:'Audits of existing sites — UX, performance and conversion — followed by focused improvements.'},
+  {id:'growth',number:'10',label:'GROW',title:'Business Growth',text:'Connecting the technical build to the commercial goal, so the site is judged by what it earns, not just how it looks.'},
 ] as const;
 
 export const process = [
