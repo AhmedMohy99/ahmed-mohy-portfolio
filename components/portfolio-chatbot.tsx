@@ -44,8 +44,17 @@ export function PortfolioChatbot() {
   const submit = (event: FormEvent<HTMLFormElement>) => { event.preventDefault(); ask(input); };
 
   return <>
-    <button type="button" onClick={() => setOpen(true)} className="fixed bottom-6 right-6 z-[70] flex items-center gap-3 rounded-full border border-[var(--line-strong)] bg-[var(--fg)] px-5 py-3 text-sm text-white shadow-[0_18px_50px_rgba(20,18,15,.22)] transition-transform hover:-translate-y-1" aria-label="Open Ahmed AI Assistant"><Bot size={17} /><span className="hidden sm:inline">Ask Ahmed AI</span><MessageCircle size={15} className="sm:hidden" /></button>
-    {open && <div className="fixed inset-0 z-[80] flex items-end justify-end bg-black/20 p-4 backdrop-blur-[2px] sm:p-6" onMouseDown={(event) => { if (event.target === event.currentTarget) setOpen(false); }}>
+    <button
+      type="button"
+      onClick={() => setOpen(true)}
+      className="fixed bottom-[calc(4.5rem+env(safe-area-inset-bottom))] right-4 z-[70] flex items-center gap-3 rounded-full border border-[var(--line-strong)] bg-[var(--fg)] px-5 py-3 text-sm text-white shadow-[0_18px_50px_rgba(20,18,15,.22)] transition-transform hover:-translate-y-1 sm:bottom-6 sm:right-6"
+      aria-label="Open Ahmed AI Assistant"
+    >
+      <Bot size={17} />
+      <span className="hidden sm:inline">Ask Ahmed AI</span>
+      <MessageCircle size={15} className="sm:hidden" />
+    </button>
+    {open && <div className="fixed inset-0 z-[80] flex items-end justify-end bg-black/20 p-4 pb-[calc(1rem+env(safe-area-inset-bottom))] backdrop-blur-[2px] sm:p-6" onMouseDown={(event) => { if (event.target === event.currentTarget) setOpen(false); }}>
       <section dir={lang === 'ar' ? 'rtl' : 'ltr'} aria-label={t.title} className="flex h-[min(680px,calc(100vh-2rem))] w-full max-w-[430px] flex-col overflow-hidden rounded-[1.5rem] border border-[var(--line-strong)] bg-[var(--white)] shadow-[0_30px_90px_rgba(20,18,15,.28)]">
         <header className="border-b border-[var(--line)] bg-[var(--fg)] p-5 text-white"><div className="flex items-start justify-between gap-4"><div className="flex items-center gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10"><Bot size={19} /></span><div><h2 className="font-medium">{t.title}</h2><p className="mt-1 text-xs text-white/65">{t.subtitle}</p></div></div><div className="flex items-center gap-2"><button type="button" onClick={switchLanguage} className="rounded-full border border-white/20 px-3 py-1.5 text-[11px]">{t.language}</button><button type="button" onClick={() => setOpen(false)} className="rounded-full p-2 hover:bg-white/10" aria-label="Close"><X size={18} /></button></div></div></header>
         <div className="flex-1 overflow-y-auto p-4 sm:p-5">{messages.length === 0 ? <div className="flex min-h-full flex-col justify-center"><div className="rounded-2xl border border-[var(--line)] bg-[var(--panel)] p-5"><p className="text-sm leading-relaxed text-[var(--ink-soft)]">{t.welcome}</p></div><div className="mt-4 grid gap-2">{t.starters.map((starter) => <button key={starter} type="button" onClick={() => ask(starter)} className="rounded-xl border border-[var(--line)] px-4 py-3 text-left text-sm transition-colors hover:bg-[var(--panel)]">{starter}</button>)}</div></div> : <div className="space-y-4">{messages.map((message, index) => <div key={`${message.role}-${index}`} className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}><div className={`max-w-[86%] whitespace-pre-line rounded-2xl px-4 py-3 text-sm leading-relaxed ${message.role === 'user' ? 'bg-[var(--fg)] text-white' : 'border border-[var(--line)] bg-[var(--panel)] text-[var(--ink-soft)]'}`}>{message.text}</div></div>)}{loading && <div className="rounded-2xl border border-[var(--line)] bg-[var(--panel)] px-4 py-3 text-sm text-[var(--muted)]">{lang === 'ar' ? 'يكتب الآن…' : 'Thinking…'}</div>}<div ref={endRef} /></div>}</div>
