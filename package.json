@@ -7,8 +7,10 @@
   },
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/dedupe-localization-keys.mjs",
     "build": "next build",
     "start": "next start",
+    "pretypecheck": "node scripts/dedupe-localization-keys.mjs",
     "typecheck": "tsc --noEmit",
     "check": "npm run typecheck && npm run build"
   },
