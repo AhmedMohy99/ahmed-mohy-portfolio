@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { ArrowUpRight, ExternalLink, Radio } from 'lucide-react';
 import type { Project } from '@/data/projects';
@@ -15,23 +15,30 @@ const PREVIEW_TIMEOUT_MS = 5000;
 function ProjectPreview({ project }: { project: Project }) {
   const [showFallback, setShowFallback] = useState(false);
   const [fallbackImageFailed, setFallbackImageFailed] = useState(false);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     setShowFallback(false);
     setFallbackImageFailed(false);
 
-    const timeout = window.setTimeout(() => {
-      setShowFallback(true);
-    }, PREVIEW_TIMEOUT_MS);
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(() => setShowFallback(true), PREVIEW_TIMEOUT_MS);
 
-    return () => window.clearTimeout(timeout);
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    };
   }, [project.liveUrl]);
 
   const handleIframeLoad = () => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    timeoutRef.current = null;
     setShowFallback(false);
   };
 
   const handleIframeError = () => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    timeoutRef.current = null;
     setShowFallback(true);
   };
 
