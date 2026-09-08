@@ -7,7 +7,7 @@ const actionClass = 'inline-flex h-10 items-center gap-2 rounded-full px-3.5 tex
 
 export function FloatingNav() {
   return (
-    <nav aria-label="Quick actions" className="fixed inset-x-0 bottom-4 z-50 flex justify-center px-3 sm:bottom-5 sm:px-4">
+    <nav aria-label="Quick actions" className="fixed inset-x-0 bottom-[calc(0.75rem+env(safe-area-inset-bottom))] z-[60] flex justify-center px-3 sm:bottom-[calc(1.25rem+env(safe-area-inset-bottom))] sm:px-4">
       <div className="flex max-w-full items-center gap-0.5 overflow-x-auto rounded-full border border-neutral-200/90 bg-white/90 p-1.5 shadow-[0_18px_50px_rgba(15,23,42,.16)] backdrop-blur-xl [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         <a href={site.whatsapp} target="_blank" rel="noopener noreferrer" className={actionClass} aria-label="WhatsApp">
           <MessageCircle size={16} strokeWidth={1.8} /> <span>WhatsApp</span>
