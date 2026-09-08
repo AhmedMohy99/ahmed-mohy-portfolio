@@ -1,13 +1,12 @@
 import { Globe2, MessageCircle, Send } from 'lucide-react';
-
-const whatsappMessage = encodeURIComponent('Hello Ahmed, I would like to discuss a project.');
+import { site } from '@/lib/site';
 
 export function FloatingNav() {
   return (
     <nav aria-label="Quick actions" className="fixed inset-x-0 bottom-5 z-50 flex justify-center px-4">
       <div className="flex items-center gap-1 rounded-full border border-neutral-200 bg-white/90 px-2 py-2 shadow-[0_18px_60px_rgba(0,0,0,.16)] backdrop-blur-xl">
         <a
-          href={`https://wa.me/?text=${whatsappMessage}`}
+          href={site.whatsapp}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex h-10 items-center gap-2 rounded-full px-4 text-xs font-semibold text-neutral-700 transition-all hover:bg-neutral-100 hover:text-neutral-950"
