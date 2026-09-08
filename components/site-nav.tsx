@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { Menu, MousePointer2, X, Languages } from 'lucide-react';
-import { dictionaries, getDirection, getLocaleFromBrowser, LOCALE_COOKIE, LOCALE_STORAGE, persistLocale, type Locale } from '@/lib/i18n';
+import { dictionaries, getLocaleFromBrowser, persistLocale, type Locale } from '@/lib/i18n';
 
 const navVisuals = [
   { key: 'home', href: '#top', image: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=700&q=78', alt: 'Minimal modern creative studio interior' },
