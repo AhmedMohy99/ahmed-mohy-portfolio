@@ -8,8 +8,8 @@ const navVisuals = [
   { label: 'Work', href: '#work', image: 'https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=700&q=78', alt: 'Modern digital design workspace' },
   { label: 'Services', href: '#services', image: 'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=700&q=78', alt: 'Creative team working together' },
   { label: 'About', href: '#about', image: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=700&q=78', alt: 'Premium office interior' },
+  { label: 'AI Sales Lab', href: '#ai-lab', image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=700&q=78', alt: 'Artificial intelligence interface' },
   { label: 'Contact', href: '#contact', image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=700&q=78', alt: 'Modern workspace with natural light' },
-  { label: 'AI Lab', href: 'https://ai-chatbot-portfolio-ahmed-mohy.vercel.app/', image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=700&q=78', alt: 'Artificial intelligence interface' },
 ];
 
 export function SiteNav() {
@@ -44,56 +44,21 @@ export function SiteNav() {
         <a href="#top" onClick={closeMenu} className="display text-base" aria-label="Ahmed Mohyeldin home">AHMED MOHYELDIN<span className="text-[var(--bronze)]">.</span></a>
         <nav className="hidden items-center gap-7 md:flex" aria-label="Main menu">
           {navVisuals.map((item) => (
-            <a
-              key={item.label}
-              href={item.href}
-              className="nav-link group relative py-3"
-              onClick={closeMenu}
-              target={item.href.startsWith('http') ? '_blank' : undefined}
-              rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-            >
+            <a key={item.label} href={item.href} className="nav-link group relative py-3" onClick={closeMenu}>
               {item.label}
               <span className="pointer-events-none absolute left-1/2 top-full z-30 hidden w-44 -translate-x-1/2 pt-3 group-hover:block group-focus:block">
-                <span className="block overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--white)] p-1 shadow-[0_20px_45px_rgba(30,25,20,.15)]">
-                  <img src={item.image} alt="" loading="lazy" className="h-24 w-full rounded-lg object-cover" />
-                  <span className="block px-2 py-2 text-[9px] uppercase tracking-[.14em] text-[var(--muted)]">Explore {item.label}</span>
-                </span>
+                <span className="block overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--white)] p-1 shadow-[0_20px_45px_rgba(30,25,20,.15)]"><img src={item.image} alt="" loading="lazy" className="h-24 w-full rounded-lg object-cover" /><span className="block px-2 py-2 text-[9px] uppercase tracking-[.14em] text-[var(--muted)]">Explore {item.label}</span></span>
               </span>
             </a>
           ))}
         </nav>
         <div className="flex items-center gap-3">
-          <button type="button" onClick={toggle3D} className="accessibility-toggle hidden sm:inline-flex" aria-pressed={reduced3D}>
-            <MousePointer2 size={14} />{reduced3D ? '3D off' : '3D on'}
-          </button>
+          <button type="button" onClick={toggle3D} className="accessibility-toggle hidden sm:inline-flex" aria-pressed={reduced3D}><MousePointer2 size={14} />{reduced3D ? '3D off' : '3D on'}</button>
           <a href="#contact" className="btn btn-primary hidden lg:inline-flex">Start a project</a>
-          <button type="button" aria-label={menuOpen ? 'Close menu' : 'Open menu'} aria-expanded={menuOpen} onClick={() => setMenuOpen((value) => !value)} className="rounded-full border border-[var(--line-strong)] bg-[var(--white)] p-2 md:hidden">
-            {menuOpen ? <X size={18} /> : <Menu size={18} />}
-          </button>
+          <button type="button" aria-label={menuOpen ? 'Close menu' : 'Open menu'} aria-expanded={menuOpen} onClick={() => setMenuOpen((value) => !value)} className="rounded-full border border-[var(--line-strong)] bg-[var(--white)] p-2 md:hidden">{menuOpen ? <X size={18} /> : <Menu size={18} />}</button>
         </div>
       </div>
-      {menuOpen && (
-        <div className="border-t border-[var(--line)] bg-[var(--white)] px-6 py-7 shadow-lg md:hidden">
-          <div className="flex flex-col gap-2">
-            {navVisuals.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                onClick={closeMenu}
-                className="mobile-nav-item flex items-center gap-4 rounded-2xl p-3"
-                target={item.href.startsWith('http') ? '_blank' : undefined}
-                rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-              >
-                <img src={item.image} alt="" loading="lazy" className="h-14 w-20 rounded-xl object-cover" />
-                <span><strong className="block text-base">{item.label}</strong><small className="text-xs text-[var(--muted)]">Explore {item.label}</small></span>
-              </a>
-            ))}
-            <button className="mt-2 border-t border-[var(--line)] pt-4 text-left text-sm" onClick={() => { toggle3D(); closeMenu(); }}>
-              3D experience: {reduced3D ? 'Off' : 'On'}
-            </button>
-          </div>
-        </div>
-      )}
+      {menuOpen && <div className="border-t border-[var(--line)] bg-[var(--white)] px-6 py-7 shadow-lg md:hidden"><div className="flex flex-col gap-2">{navVisuals.map((item) => <a key={item.label} href={item.href} onClick={closeMenu} className="mobile-nav-item flex items-center gap-4 rounded-2xl p-3"><img src={item.image} alt="" loading="lazy" className="h-14 w-20 rounded-xl object-cover" /><span><strong className="block text-base">{item.label}</strong><small className="text-xs text-[var(--muted)]">Explore {item.label}</small></span></a>)}<button className="mt-2 border-t border-[var(--line)] pt-4 text-left text-sm" onClick={() => { toggle3D(); closeMenu(); }}>3D experience: {reduced3D ? 'Off' : 'On'}</button></div></div>}
     </header>
   );
 }
