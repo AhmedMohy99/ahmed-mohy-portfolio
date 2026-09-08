@@ -14,10 +14,10 @@ function dedupeLocaleBlock(text, locale) {
   const end = nextLocale === -1 ? text.length : nextLocale;
   const body = text.slice(bodyStart, end);
 
-  const pair = /'((?:\\.|[^'])*)'\s*:\s*'((?:\\.|[^'])*)'/g;
+  const pair = /([ \t]*)'((?:\\.|[^'])*)'\s*:\s*'((?:\\.|[^'])*)'\s*,?/g;
   const seen = new Set();
   const duplicates = [];
-  const cleaned = body.replace(pair, (full, key) => {
+  const cleaned = body.replace(pair, (full, indent, key) => {
     if (seen.has(key)) {
       duplicates.push(key);
       return '';
