@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { Menu, MousePointer2, X } from 'lucide-react';
+import { Menu, MousePointer2, X, Languages } from 'lucide-react';
+import { togglePortfolioLanguage } from './bilingual-site';
 
 const navVisuals = [
   { label: 'Home', href: '#top', image: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=700&q=78', alt: 'Minimal modern creative studio interior' },
@@ -16,9 +17,11 @@ export function SiteNav() {
   const nav = useRef<HTMLElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [reduced3D, setReduced3D] = useState(false);
+  const [language, setLanguage] = useState<'en' | 'ar'>('en');
 
   useEffect(() => {
     setReduced3D(window.localStorage.getItem('ahmed-reduced-3d') === 'true');
+    setLanguage(window.localStorage.getItem('ahmed-language') === 'ar' ? 'ar' : 'en');
     let last = window.scrollY;
     const onScroll = () => {
       const y = window.scrollY;
@@ -34,6 +37,13 @@ export function SiteNav() {
     setReduced3D(next);
     window.localStorage.setItem('ahmed-reduced-3d', String(next));
     window.dispatchEvent(new CustomEvent('portfolio-3d-toggle', { detail: next }));
+  };
+
+  const changeLanguage = () => {
+    const next = language === 'ar' ? 'en' : 'ar';
+    window.localStorage.setItem('ahmed-language', next);
+    setLanguage(next);
+    togglePortfolioLanguage();
   };
 
   const closeMenu = () => setMenuOpen(false);
@@ -53,6 +63,7 @@ export function SiteNav() {
           ))}
         </nav>
         <div className="flex items-center gap-3">
+          <button type="button" onClick={changeLanguage} className="accessibility-toggle inline-flex" aria-label="Switch language" title="Switch between English and Arabic"><Languages size={14} /><span>{language === 'ar' ? 'EN' : 'عربي'}</span></button>
           <button type="button" onClick={toggle3D} className="accessibility-toggle hidden sm:inline-flex" aria-pressed={reduced3D}><MousePointer2 size={14} />{reduced3D ? '3D off' : '3D on'}</button>
           <a href="#contact" className="btn btn-primary hidden lg:inline-flex">Start a project</a>
           <button type="button" aria-label={menuOpen ? 'Close menu' : 'Open menu'} aria-expanded={menuOpen} onClick={() => setMenuOpen((value) => !value)} className="rounded-full border border-[var(--line-strong)] bg-[var(--white)] p-2 md:hidden">{menuOpen ? <X size={18} /> : <Menu size={18} />}</button>
