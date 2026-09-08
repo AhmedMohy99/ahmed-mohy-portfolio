@@ -1,0 +1,6 @@
+{
+  "nav": {"home":"Home","work":"Work","services":"Services","about":"About","aiSalesLab":"AI Sales Lab","contact":"Contact","startProject":"Start a project","explore":"Explore","menu":"Menu","close":"Close","switchLanguage":"Switch language","english":"EN","arabic":"عربي","threeDOn":"3D on","threeDOff":"3D off","threeDExperienceOn":"3D experience: On","threeDExperienceOff":"3D experience: Off"},
+  "accessibility": {"primaryNavigation":"Primary navigation","mainMenu":"Main menu","openMenu":"Open menu","closeMenu":"Close menu","home":"Ahmed Mohyeldin home","language":"Switch between English and Arabic"},
+  "common": {"skipToMain":"Skip to main content"},
+  "meta": {"title":"Ahmed Mohy Eldin Abdrabbo | IT & Digital Solutions","description":"IT, web development, AI, e-commerce, UI/UX and 3D digital experiences by Ahmed Mohy Eldin Abdrabbo.","locale":"en_US"}
+}
