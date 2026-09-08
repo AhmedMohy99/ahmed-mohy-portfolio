@@ -1,6 +1,5 @@
-import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowUpRight, ExternalLink } from 'lucide-react';
+import { ArrowUpRight, ExternalLink, Radio } from 'lucide-react';
 import type { Project } from '@/data/projects';
 
 type ProjectCardProps = {
@@ -11,29 +10,35 @@ type ProjectCardProps = {
 export function ProjectCard({ project, archived = false }: ProjectCardProps) {
   return (
     <article className={`group overflow-hidden rounded-2xl border border-neutral-200/80 bg-white transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-xl ${archived ? 'opacity-90' : ''}`}>
-      <Link href={`/work/${project.slug}`} className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:ring-offset-2">
-        <div className="relative aspect-[16/10] overflow-hidden bg-neutral-100">
-          <Image
-            src={project.image}
-            alt={project.imageAlt}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
-            loading="lazy"
-            className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.035]"
-          />
-          <div className="absolute inset-x-0 top-0 flex items-center justify-between p-4">
-            <span className="rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-medium text-neutral-700 shadow-sm backdrop-blur">
-              {project.tag}
-            </span>
-            {project.featured && (
-              <span className="rounded-full bg-neutral-900 px-2.5 py-1 text-[11px] font-semibold text-white shadow-sm">Featured</span>
-            )}
-          </div>
-          <div className="absolute bottom-4 right-4 flex h-9 w-9 items-center justify-center rounded-full bg-white/95 text-neutral-900 opacity-0 shadow-md transition-opacity duration-300 group-hover:opacity-100">
-            <ArrowUpRight size={16} />
-          </div>
+      <div className="relative aspect-[16/10] overflow-hidden bg-neutral-100">
+        <iframe
+          src={project.url}
+          title={`${project.name} live website`}
+          loading="lazy"
+          className="pointer-events-none absolute inset-0 h-full w-full origin-top-left scale-[0.72] border-0"
+          style={{ width: '138.9%', height: '138.9%' }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/25" />
+        <div className="absolute inset-x-0 top-0 flex items-center justify-between p-4">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-white/95 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[.12em] text-neutral-800 shadow-sm backdrop-blur">
+            <Radio size={11} className="text-emerald-600" /> Live
+          </span>
+          <span className="rounded-full bg-white/95 px-2.5 py-1 text-[11px] font-medium text-neutral-700 shadow-sm backdrop-blur">
+            {project.tag}
+          </span>
         </div>
-      </Link>
+        <a
+          href={project.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Open ${project.name} live website`}
+          className="absolute inset-0 flex items-end justify-end p-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:ring-inset"
+        >
+          <span className="inline-flex h-10 items-center gap-2 rounded-full bg-white/95 px-4 text-xs font-semibold text-neutral-900 shadow-lg backdrop-blur transition-transform group-hover:scale-[1.02]">
+            Open live site <ExternalLink size={14} />
+          </span>
+        </a>
+      </div>
 
       <div className="p-5 sm:p-6">
         <div className="flex items-start justify-between gap-4">
