@@ -17,6 +17,7 @@ const translations: Record<string, string> = {
   'Explore Contact': 'استكشف التواصل',
   'Start a project': 'ابدأ مشروعًا',
   'Try the AI Sales Lab': 'جرّب مختبر مبيعات الذكاء الاصطناعي',
+  'Talk to the live agent': 'تحدث مع الوكيل المباشر',
   'Scroll to explore': 'مرّر للاستكشاف',
   'Cairo, Egypt · Available for selected projects': 'القاهرة، مصر · متاح لمشاريع مختارة',
   'About · Ahmed Mohyeldin': 'نبذة · أحمد محي الدين',
@@ -33,7 +34,6 @@ const translations: Record<string, string> = {
   'Perspective': 'الرؤية',
   'Based in': 'الموقع',
   'Capabilities': 'القدرات',
-  'Services': 'الخدمات',
   'AI & data': 'الذكاء الاصطناعي والبيانات',
   'I BUILD': 'أبني',
   'WITH AI.': 'بالذكاء الاصطناعي.',
@@ -63,7 +63,6 @@ const translations: Record<string, string> = {
   'I BUILD DIGITAL': 'أبني تجارب رقمية',
   'EXPERIENCES': 'تغيّر',
   'THAT MOVE BUSINESS.': 'الأعمال إلى الأمام.',
-  'AI Sales Lab': 'مختبر مبيعات الذكاء الاصطناعي',
 };
 
 const reverseTranslations = Object.fromEntries(Object.entries(translations).map(([en, ar]) => [ar, en]));
