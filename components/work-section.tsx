@@ -39,12 +39,14 @@ export function WorkSection() {
       <div className="container">
         <div className="mb-12 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl">
-            <div className="mb-5 text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">Selected work · Live experiences</div>
+            <div className="mb-5 text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">
+              Selected work · Real live products
+            </div>
             <h2 id="work-title" className="display text-5xl md:text-7xl">
               PROJECTS<span className="serif-italic">.</span>
             </h2>
             <p className="mt-5 max-w-2xl text-base leading-7 text-neutral-500 md:text-lg">
-              Real products and digital experiences. Explore the actual live websites first, then open the case study for the thinking behind each build.
+              Explore the real websites first. Each project opens the live experience directly, with a case study behind it for the strategy, craft and technical decisions.
             </p>
           </div>
           <div className="lg:max-w-2xl">
@@ -53,7 +55,7 @@ export function WorkSection() {
         </div>
 
         <div className="mb-8 flex flex-wrap items-center justify-between gap-4 border-y border-neutral-200 py-4 text-[10px] font-semibold uppercase tracking-[0.18em] text-neutral-400">
-          <span>{visibleProjects.length} live projects</span>
+          <span>{visibleProjects.length} live experiences</span>
           <a href="#contact" className="inline-flex items-center gap-2 text-neutral-900 transition-colors hover:text-neutral-500">
             Have a project in mind <ArrowUpRight size={13} />
           </a>
