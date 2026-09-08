@@ -8,12 +8,14 @@ import { PortfolioChatbot } from './portfolio-chatbot';
 import { HeroHeader } from './portfolio/hero-header';
 import { FloatingNav } from './portfolio/floating-nav';
 import { AISalesLab } from './ai-sales-lab';
+import { BilingualSite } from './bilingual-site';
 import { aiProjects, process, services } from '@/data/projects';
 
 const studioImage = 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=2000&q=82';
 
 export default function SiteServer() {
   return <main className="grain" id="top">
+    <BilingualSite />
     <SiteNav />
     <section className="hero-wash relative min-h-screen overflow-hidden" aria-labelledby="hero-title">
       <div className="hero-image absolute inset-x-0 top-0 h-[58vh] opacity-80"><Image src={studioImage} alt="" fill priority sizes="100vw" className="object-cover" /><div className="absolute inset-0 bg-gradient-to-b from-white/10 via-[var(--bg)]/65 to-[var(--bg)]" /></div>
