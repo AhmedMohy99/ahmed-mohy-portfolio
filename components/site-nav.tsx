@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { Menu, MousePointer2, X, Languages } from 'lucide-react';
+import { Menu, MousePointer2, X, Languages, CalendarDays } from 'lucide-react';
 import { dictionaries, getLocaleFromBrowser, persistLocale, type Locale } from '@/lib/i18n';
 
 const navVisuals = [
@@ -71,11 +71,11 @@ export function SiteNav() {
         <div className="flex items-center gap-3">
           <button type="button" onClick={changeLanguage} className="accessibility-toggle inline-flex" aria-label={t.switchLanguage} title={a.language}><Languages size={14} /><span>{language === 'ar' ? t.english : t.arabic}</span></button>
           <button type="button" onClick={toggle3D} className="accessibility-toggle hidden sm:inline-flex" aria-pressed={reduced3D}><MousePointer2 size={14} />{reduced3D ? t.threeDOff : t.threeDOn}</button>
-          <a href="#contact" className="btn btn-primary hidden lg:inline-flex">{t.startProject}</a>
+          <a href="#schedule-call" className="btn btn-primary hidden lg:inline-flex"><CalendarDays size={14} />{language === 'ar' ? 'رتّب مكالمة' : 'Arrange a call'}</a>
           <button type="button" aria-label={menuOpen ? a.closeMenu : a.openMenu} aria-expanded={menuOpen} onClick={() => setMenuOpen((value) => !value)} className="rounded-full border border-[var(--line-strong)] bg-[var(--white)] p-2 md:hidden">{menuOpen ? <X size={18} /> : <Menu size={18} />}</button>
         </div>
       </div>
-      {menuOpen && <div className="border-t border-[var(--line)] bg-[var(--white)] px-6 py-7 shadow-lg md:hidden"><div className="flex flex-col gap-2">{navVisuals.map((item) => { const label = t[item.key as keyof typeof t] as string; return <a key={item.key} href={item.href} onClick={closeMenu} className="mobile-nav-item flex items-center gap-4 rounded-2xl p-3"><img src={item.image} alt="" loading="lazy" className="h-14 w-20 rounded-xl object-cover" /><span><strong className="block text-base">{label}</strong><small className="text-xs text-[var(--muted)]">{t.explore} {label}</small></span></a>; })}<button className="mt-2 border-t border-[var(--line)] pt-4 text-left text-sm" onClick={() => { toggle3D(); closeMenu(); }}>{reduced3D ? t.threeDExperienceOff : t.threeDExperienceOn}</button></div></div>}
+      {menuOpen && <div className="border-t border-[var(--line)] bg-[var(--white)] px-6 py-7 shadow-lg md:hidden"><div className="flex flex-col gap-2">{navVisuals.map((item) => { const label = t[item.key as keyof typeof t] as string; return <a key={item.key} href={item.href} onClick={closeMenu} className="mobile-nav-item flex items-center gap-4 rounded-2xl p-3"><img src={item.image} alt="" loading="lazy" className="h-14 w-20 rounded-xl object-cover" /><span><strong className="block text-base">{label}</strong><small className="text-xs text-[var(--muted)]">{t.explore} {label}</small></span></a>; })}<a href="#schedule-call" onClick={closeMenu} className="mt-2 flex items-center justify-center gap-2 rounded-xl bg-[var(--fg)] px-4 py-3 text-sm text-white"><CalendarDays size={15} />{language === 'ar' ? 'رتّب مكالمة' : 'Arrange a call'}</a><button className="border-t border-[var(--line)] pt-4 text-left text-sm" onClick={() => { toggle3D(); closeMenu(); }}>{reduced3D ? t.threeDExperienceOff : t.threeDExperienceOn}</button></div></div>}
     </header>
   );
 }

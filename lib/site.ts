@@ -11,5 +11,9 @@ export const site = {
   github: 'https://github.com/AhmedMohy99',
   instagram: 'https://www.instagram.com/ahmed.abdrabboo/',
   linktree: 'https://linktr.ee/Ahmed.Mohyeldin',
-  booking: 'https://wa.me/201016286261?text=Hi%20Ahmed%2C%20I%27d%20like%20to%20arrange%20a%20call%20to%20discuss%20a%20project.',
+  // Configure a real scheduler in Vercel/hosting when ready.
+  // WhatsApp stays as the fallback so the CTA always works.
+  booking:
+    process.env.NEXT_PUBLIC_BOOKING_URL?.trim() ||
+    'https://wa.me/201016286261?text=Hi%20Ahmed%2C%20I%27d%20like%20to%20arrange%20a%20call%20to%20discuss%20a%20project.',
 } as const;
