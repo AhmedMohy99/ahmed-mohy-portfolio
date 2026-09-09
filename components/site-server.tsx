@@ -11,6 +11,7 @@ import { AISalesLab } from './ai-sales-lab';
 import { LiveSalesAgent } from './live-sales-agent';
 import { BilingualSite } from './bilingual-site';
 import { ScheduleCall } from './schedule-call';
+import { ConversionAnalytics } from './conversion-analytics';
 import { aiProjects, process, services } from '@/data/projects';
 import { site } from '@/lib/site';
 
@@ -19,6 +20,7 @@ const studioImage = 'https://images.unsplash.com/photo-1497366811353-6870744d04b
 export default function SiteServer() {
   return <main className="grain" id="top">
     <BilingualSite />
+    <ConversionAnalytics />
     <SiteNav />
     <section className="hero-wash relative min-h-screen overflow-hidden" aria-labelledby="hero-title">
       <div className="hero-image absolute inset-x-0 top-0 h-[58vh] opacity-80"><Image src={studioImage} alt="" fill priority sizes="100vw" className="object-cover" /><div className="absolute inset-0 bg-gradient-to-b from-white/10 via-[var(--bg)]/65 to-[var(--bg)]" /></div>
@@ -38,6 +40,7 @@ export default function SiteServer() {
     <section id="contact" className="section-dark py-28 md:py-40" aria-labelledby="contact-title"><div className="container"><div className="grid gap-14 md:grid-cols-[1.1fr_.9fr] md:items-end"><div><div className="label mb-7">Start a conversation</div><h2 id="contact-title" className="display section-title">LET&apos;S BUILD<br /><span className="serif-italic">SOMETHING.</span></h2></div><ContactForm /></div></div></section>
     <footer className="border-t border-[var(--line)] bg-[var(--bg)]"><div className="container flex flex-col gap-4 py-8 text-sm text-[var(--muted)] md:flex-row md:items-center md:justify-between"><span>© {new Date().getFullYear()} {site.shortName}. All rights reserved.</span><span>IT · AI · UI/UX · 3D · E-commerce</span></div></footer>
     <FloatingNav />
+    <div className="fixed inset-x-3 bottom-3 z-[60] md:hidden"><a href="#schedule-call" className="flex min-h-12 items-center justify-center gap-2 rounded-full bg-[var(--fg)] px-5 py-3 text-sm font-medium text-white shadow-[0_16px_50px_rgba(20,18,15,.28)]"><CalendarDays size={16} /> Arrange a call</a></div>
     <PortfolioChatbot />
   </main>;
 }
