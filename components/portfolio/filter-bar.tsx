@@ -1,5 +1,7 @@
 'use client';
 
+import { useLocale, translate } from '@/locales/use-locale';
+
 export type PortfolioCategory = 'all' | 'full-stack-ai' | 'ecommerce' | '3d-web';
 
 type FilterBarProps = {
@@ -15,8 +17,10 @@ const filters: Array<{ id: PortfolioCategory; label: string }> = [
 ];
 
 export function FilterBar({ active, onChange }: FilterBarProps) {
+  const locale = useLocale();
+
   return (
-    <div className="flex gap-2 overflow-x-auto pb-2" role="tablist" aria-label="Filter projects">
+    <div className="flex gap-2 overflow-x-auto pb-2" role="tablist" aria-label={translate(locale, 'Filter projects')}>
       {filters.map((filter) => {
         const isActive = active === filter.id;
         return (
@@ -32,7 +36,7 @@ export function FilterBar({ active, onChange }: FilterBarProps) {
                 : 'border-neutral-200 bg-white text-neutral-600 hover:border-neutral-900 hover:text-neutral-900'
             }`}
           >
-            {filter.label}
+            {translate(locale, filter.label)}
           </button>
         );
       })}
