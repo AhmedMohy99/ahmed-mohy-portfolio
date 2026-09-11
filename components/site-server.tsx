@@ -33,7 +33,7 @@ export default function SiteServer() {
         </div>
         <div className="mt-9 flex flex-wrap gap-3">
           <a href="#ai-lab" className="btn btn-primary">Try the AI Sales Lab <ArrowUpRight size={15} /></a>
-          <a href="#interactive-commerce" className="btn btn-secondary">Explore interactive commerce</a>
+          <a href="#interactive-commerce" className="btn btn-secondary">Explore digital experiences</a>
           <a href="#schedule-call" className="btn btn-secondary"><CalendarDays size={15} /> Arrange a call</a>
           <a href="#contact" className="btn btn-secondary">Start a project</a>
         </div>
@@ -93,7 +93,7 @@ export default function SiteServer() {
     <section className="border-y border-[var(--line)] bg-[var(--panel)]" aria-labelledby="process-title"><div className="container py-28 md:py-40"><div className="label mb-7">How I work</div><h2 id="process-title" className="display section-title">FROM IDEA<br /><span className="serif-italic">TO IMPACT.</span></h2><div className="mt-16 grid border-t border-[var(--line)] md:grid-cols-4">{process.map((item) => <article key={item.step} className="border-b border-[var(--line)] p-7 md:border-b-0 md:border-r md:p-9 md:last:border-r-0"><div className="text-sm text-[var(--bronze)]">{item.step}</div><h3 className="display mt-8 text-2xl">{item.title}</h3><p className="mt-4 text-sm leading-relaxed text-[var(--muted)]">{item.text}</p></article>)}</div></div></section>
 
     <section id="contact" className="section-dark py-28 md:py-40" aria-labelledby="contact-title"><div className="container"><div className="grid gap-14 md:grid-cols-[1.1fr_.9fr] md:items-end"><div><div className="label mb-7">Start a conversation</div><h2 id="contact-title" className="display section-title">LET&apos;S BUILD<br /><span className="serif-italic">SOMETHING.</span></h2></div><ContactForm /></div></div></section>
-    <footer className="border-t border-[var(--line)] bg-[var(--bg)]"><div className="container flex flex-col gap-4 py-8 text-sm text-[var(--muted)] md:flex-row md:items-center md:justify-between"><span>© {new Date().getFullYear()} {site.shortName}. All rights reserved.</span><span>AI · Web · Commerce · UI/UX · 3D</span></div></footer>
+    <footer className="border-t border-[var(--line)] bg-[var(--bg)]"><div className="container flex flex-col gap-4 py-8 text-sm text-[var(--muted)] md:flex-row md:items-center md:justify-between"><span>© {new Date().getFullYear()} {site.shortName}. All rights reserved.</span><span>AI · Web · Commerce · UI/UX · 3D</span></div></div></footer>
     <FloatingNav />
     <div className="fixed inset-x-3 bottom-3 z-[60] md:hidden"><a href="#schedule-call" className="flex min-h-12 items-center justify-center gap-2 rounded-full bg-[var(--fg)] px-5 py-3 text-sm font-medium text-white shadow-[0_16px_50px_rgba(20,18,15,.28)]"><CalendarDays size={16} /> Arrange a call</a></div>
     <PortfolioChatbot />
