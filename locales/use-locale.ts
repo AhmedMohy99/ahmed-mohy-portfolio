@@ -1,9 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import type { ContentLocale } from './content';
+import { content, type ContentLocale } from './content';
 
 const STORAGE_KEY = 'ahmed-language';
+const EVENT_NAME = 'portfolio-language-change';
 
 export function useLocale(): ContentLocale {
   const [locale, setLocale] = useState<ContentLocale>('en');
@@ -15,14 +16,13 @@ export function useLocale(): ContentLocale {
       const next = (event as CustomEvent<ContentLocale>).detail === 'ar' ? 'ar' : 'en';
       setLocale(next);
     };
-    window.addEventListener('portfolio-language-change', onChange);
-    return () => window.removeEventListener('portfolio-language-change', onChange);
+    window.addEventListener(EVENT_NAME, onChange);
+    return () => window.removeEventListener(EVENT_NAME, onChange);
   }, []);
 
   return locale;
 }
 
-export function t(locale: ContentLocale, value: string): string {
-  if (locale === 'en') return value;
-  return value;
+export function translate(locale: ContentLocale, value: string): string {
+  return content[locale][value] ?? value;
 }
