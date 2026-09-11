@@ -1,16 +1,16 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { Menu, MousePointer2, X, Languages, CalendarDays } from 'lucide-react';
+import { MousePointer2, X, Languages, CalendarDays, ArrowUpRight } from 'lucide-react';
 import { dictionaries, getLocaleFromBrowser, persistLocale, type Locale } from '@/lib/i18n';
 
 const navVisuals = [
-  { key: 'home', href: '#top', image: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=700&q=78', alt: 'Minimal modern creative studio interior' },
-  { key: 'work', href: '#work', image: 'https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=700&q=78', alt: 'Modern digital design workspace' },
-  { key: 'services', href: '#services', image: 'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=700&q=78', alt: 'Creative team working together' },
-  { key: 'about', href: '#about', image: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=700&q=78', alt: 'Premium office interior' },
-  { key: 'aiSalesLab', href: '#ai-lab', image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=700&q=78', alt: 'Artificial intelligence interface' },
-  { key: 'contact', href: '#contact', image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=700&q=78', alt: 'Modern workspace with natural light' },
+  { key: 'home', href: '#top' },
+  { key: 'work', href: '#work' },
+  { key: 'services', href: '#services' },
+  { key: 'about', href: '#about' },
+  { key: 'aiSalesLab', href: '#ai-lab' },
+  { key: 'contact', href: '#contact' },
 ] as const;
 
 export function SiteNav() {
@@ -26,15 +26,23 @@ export function SiteNav() {
     setLanguage(stored);
     persistLocale(stored);
     setReduced3D(window.localStorage.getItem('ahmed-reduced-3d') === 'true');
+
     let last = window.scrollY;
     const onScroll = () => {
       const y = window.scrollY;
-      if (nav.current) nav.current.style.transform = y > last && y > 80 ? 'translateY(-110%)' : 'translateY(0)';
+      if (nav.current) nav.current.style.transform = y > last && y > 80 && !menuOpen ? 'translateY(-110%)' : 'translateY(0)';
       last = y;
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  }, [menuOpen]);
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [menuOpen]);
 
   const toggle3D = () => {
     const next = !reduced3D;
@@ -55,27 +63,69 @@ export function SiteNav() {
 
   return (
     <header ref={nav} className="site-nav fixed left-0 right-0 top-0 z-50" aria-label={a.primaryNavigation}>
-      <div className="container flex h-[78px] items-center justify-between">
-        <a href="#top" onClick={closeMenu} className="display text-base" aria-label={a.home}>AHMED MOHYELDIN<span className="text-[var(--bronze)]">.</span></a>
+      <div className="container flex h-[72px] items-center justify-between gap-3 sm:h-[78px]">
+        <a href="#top" onClick={closeMenu} className="display shrink-0 text-[13px] sm:text-base" aria-label={a.home}>
+          AHMED MOHYELDIN<span className="text-[var(--bronze)]">.</span>
+        </a>
+
         <nav className="hidden items-center gap-7 md:flex" aria-label={a.mainMenu}>
           {navVisuals.map((item) => {
             const label = t[item.key as keyof typeof t] as string;
-            return <a key={item.key} href={item.href} className="nav-link group relative py-3" onClick={closeMenu}>
-              {label}
-              <span className="pointer-events-none absolute left-1/2 top-full z-30 hidden w-44 -translate-x-1/2 pt-3 group-hover:block group-focus:block">
-                <span className="block overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--white)] p-1 shadow-[0_20px_45px_rgba(30,25,20,.15)]"><img src={item.image} alt="" loading="lazy" className="h-24 w-full rounded-lg object-cover" /><span className="block px-2 py-2 text-[9px] uppercase tracking-[.14em] text-[var(--muted)]">{t.explore} {label}</span></span>
-              </span>
-            </a>;
+            return <a key={item.key} href={item.href} className="nav-link py-3" onClick={closeMenu}>{label}</a>;
           })}
         </nav>
-        <div className="flex items-center gap-3">
-          <button type="button" onClick={changeLanguage} className="accessibility-toggle inline-flex" aria-label={t.switchLanguage} title={a.language}><Languages size={14} /><span>{language === 'ar' ? t.english : t.arabic}</span></button>
-          <button type="button" onClick={toggle3D} className="accessibility-toggle hidden sm:inline-flex" aria-pressed={reduced3D}><MousePointer2 size={14} />{reduced3D ? t.threeDOff : t.threeDOn}</button>
-          <a href="#schedule-call" className="btn btn-primary hidden lg:inline-flex"><CalendarDays size={14} />{language === 'ar' ? 'رتّب مكالمة' : 'Arrange a call'}</a>
-          <button type="button" aria-label={menuOpen ? a.closeMenu : a.openMenu} aria-expanded={menuOpen} onClick={() => setMenuOpen((value) => !value)} className="rounded-full border border-[var(--line-strong)] bg-[var(--white)] p-2 md:hidden">{menuOpen ? <X size={18} /> : <Menu size={18} />}</button>
+
+        <div className="flex min-w-0 items-center justify-end gap-2 sm:gap-3">
+          <button type="button" onClick={changeLanguage} className="accessibility-toggle" aria-label={t.switchLanguage} title={a.language}>
+            <Languages size={13} /><span>{language === 'ar' ? t.english : t.arabic}</span>
+          </button>
+
+          <button type="button" onClick={toggle3D} className="accessibility-toggle hidden sm:inline-flex" aria-pressed={reduced3D}>
+            <MousePointer2 size={13} /><span>{reduced3D ? t.threeDOff : t.threeDOn}</span>
+          </button>
+
+          <a href="#schedule-call" onClick={closeMenu} className="btn btn-primary hidden lg:inline-flex">
+            <CalendarDays size={14} />{language === 'ar' ? 'رتّب مكالمة' : 'Arrange a call'}
+          </a>
+
+          <button type="button" aria-label={menuOpen ? a.closeMenu : a.openMenu} aria-expanded={menuOpen} onClick={() => setMenuOpen((value) => !value)} className="menu-trigger rounded-full border border-[var(--line-strong)] bg-[var(--white)] p-2.5 md:hidden">
+            {menuOpen ? <X size={18} /> : <span className="block w-[18px]" aria-hidden="true"><span className="mb-1 block h-px bg-current" /><span className="block h-px bg-current" /></span>}
+          </button>
         </div>
       </div>
-      {menuOpen && <div className="border-t border-[var(--line)] bg-[var(--white)] px-6 py-7 shadow-lg md:hidden"><div className="flex flex-col gap-2">{navVisuals.map((item) => { const label = t[item.key as keyof typeof t] as string; return <a key={item.key} href={item.href} onClick={closeMenu} className="mobile-nav-item flex items-center gap-4 rounded-2xl p-3"><img src={item.image} alt="" loading="lazy" className="h-14 w-20 rounded-xl object-cover" /><span><strong className="block text-base">{label}</strong><small className="text-xs text-[var(--muted)]">{t.explore} {label}</small></span></a>; })}<a href="#schedule-call" onClick={closeMenu} className="mt-2 flex items-center justify-center gap-2 rounded-xl bg-[var(--fg)] px-4 py-3 text-sm text-white"><CalendarDays size={15} />{language === 'ar' ? 'رتّب مكالمة' : 'Arrange a call'}</a><button className="border-t border-[var(--line)] pt-4 text-left text-sm" onClick={() => { toggle3D(); closeMenu(); }}>{reduced3D ? t.threeDExperienceOff : t.threeDExperienceOn}</button></div></div>}
+
+      {menuOpen && (
+        <div className="mobile-menu fixed inset-x-0 top-[72px] bottom-0 overflow-y-auto border-t border-[var(--line)] bg-[var(--white)] md:hidden">
+          <div className="mx-auto w-full max-w-xl px-5 pb-8 pt-5">
+            <div className="mb-4 flex items-center justify-between border-b border-[var(--line)] pb-4">
+              <span className="label">{t.menu}</span>
+              <span className="text-[10px] text-[var(--muted)]">{language === 'ar' ? 'التنقل' : 'Navigation'}</span>
+            </div>
+
+            <nav aria-label={a.mainMenu} className="divide-y divide-[var(--line)] border-y border-[var(--line)]">
+              {navVisuals.map((item, index) => {
+                const label = t[item.key as keyof typeof t] as string;
+                return (
+                  <a key={item.key} href={item.href} onClick={closeMenu} className="mobile-nav-item group flex min-h-[64px] items-center gap-4 py-3">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[var(--line-strong)] text-[9px] font-semibold tracking-[.08em] text-[var(--muted)]">{String(index + 1).padStart(2, '0')}</span>
+                    <strong className="flex-1 text-[18px] font-semibold tracking-[-.025em] text-[var(--fg)]">{label}</strong>
+                    <ArrowUpRight size={17} className="text-[var(--muted)] transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                  </a>
+                );
+              })}
+            </nav>
+
+            <a href="#schedule-call" onClick={closeMenu} className="mt-5 flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-[var(--fg)] px-5 text-[11px] font-semibold uppercase tracking-[.12em] text-white">
+              <CalendarDays size={15} />{language === 'ar' ? 'رتّب مكالمة' : 'Arrange a call'}
+            </a>
+
+            <button type="button" className="mt-4 flex w-full items-center justify-between border-t border-[var(--line)] pt-4 text-left text-[11px] text-[var(--muted)]" onClick={toggle3D}>
+              <span>{language === 'ar' ? 'تجربة 3D' : '3D experience'}</span>
+              <span className="font-semibold text-[var(--fg)]">{reduced3D ? t.threeDOff : t.threeDOn}</span>
+            </button>
+          </div>
+        </div>
+      )}
     </header>
   );
 }
