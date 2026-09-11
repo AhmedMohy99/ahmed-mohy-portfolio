@@ -1,31 +1,31 @@
 'use client';
 
-import { ArrowUpRight, Box, ScanFace, Rotate3D } from 'lucide-react';
+import { ArrowUpRight, Box, Sparkles, Rotate3D } from 'lucide-react';
 import { useLocale } from '@/locales/use-locale';
 
 const copy = {
   en: {
-    eyebrow: 'Interactive commerce',
-    title: <>THE DIGITAL<br /><span className="serif-italic">FITTING ROOM.</span></>,
-    intro: 'Product experiences designed to make online shopping feel more tangible — combining 3D, interaction and clear commerce UX.',
+    eyebrow: 'Interactive digital experiences',
+    title: <>DIGITAL EXPERIENCES<br /><span className="serif-italic">BUILT TO ENGAGE.</span></>,
+    intro: 'Interactive interfaces that connect technology, design and business — from AI interactions and product experiences to 3D and modern web journeys.',
     cards: [
-      { icon: Box, title: 'Product exploration', text: 'Interactive product views, richer detail and visual storytelling that help customers understand what they are buying.' },
-      { icon: ScanFace, title: 'Virtual try-on concepts', text: 'Try-on interfaces and digital fitting-room concepts that connect product discovery with a more immersive experience.' },
-      { icon: Rotate3D, title: '3D commerce', text: 'Lightweight 3D interfaces for product presentation, customization and interactive brand experiences in the browser.' },
+      { icon: Sparkles, title: 'AI-powered interactions', text: 'Conversational interfaces, assistants and intelligent workflows designed around real user and business needs.' },
+      { icon: Box, title: 'Product & commerce experiences', text: 'Clear product journeys, e-commerce interfaces and visual storytelling that help people understand and act.' },
+      { icon: Rotate3D, title: '3D & immersive web', text: 'Lightweight 3D interfaces and interactive browser experiences that add depth without getting in the way.' },
     ],
-    note: 'Built for fashion, beauty, luxury and product-led brands.',
+    note: 'Designed for ambitious brands, products and digital teams.',
     cta: 'Explore selected work',
   },
   ar: {
-    eyebrow: 'التجارة التفاعلية',
-    title: <>غرفة<br /><span className="serif-italic">القياس الرقمية.</span></>,
-    intro: 'تجارب منتجات تجعل التسوق عبر الإنترنت أكثر واقعية، من خلال الجمع بين ثلاثي الأبعاد والتفاعل وتجربة تجارة إلكترونية واضحة.',
+    eyebrow: 'تجارب رقمية تفاعلية',
+    title: <>تجارب رقمية<br /><span className="serif-italic">مصممة للتفاعل.</span></>,
+    intro: 'واجهات تفاعلية تربط بين التقنية والتصميم والأعمال، من تفاعلات الذكاء الاصطناعي وتجارب المنتجات إلى ثلاثي الأبعاد ورحلات الويب الحديثة.',
     cards: [
-      { icon: Box, title: 'استكشاف المنتج', text: 'عرض تفاعلي للمنتج وتفاصيل أوضح وسرد بصري يساعد العميل على فهم ما يشتريه.' },
-      { icon: ScanFace, title: 'مفاهيم القياس الافتراضي', text: 'واجهات ومفاهيم لغرف القياس الرقمية تربط اكتشاف المنتج بتجربة أكثر تفاعلاً.' },
-      { icon: Rotate3D, title: 'تجارة ثلاثية الأبعاد', text: 'واجهات ثلاثية الأبعاد خفيفة لعرض المنتجات والتخصيص وبناء تجارب علامة تجارية تفاعلية داخل المتصفح.' },
+      { icon: Sparkles, title: 'تفاعلات مدعومة بالذكاء الاصطناعي', text: 'واجهات حوارية ومساعدات وسير عمل ذكية مصممة حول احتياجات المستخدم والأعمال الفعلية.' },
+      { icon: Box, title: 'تجارب المنتجات والتجارة', text: 'رحلات واضحة للمنتج وواجهات تجارة إلكترونية وسرد بصري يساعد الناس على الفهم واتخاذ القرار.' },
+      { icon: Rotate3D, title: 'الويب ثلاثي الأبعاد والتفاعلي', text: 'واجهات ثلاثية الأبعاد خفيفة وتجارب تفاعلية داخل المتصفح تضيف عمقاً دون تشتيت المستخدم.' },
     ],
-    note: 'مناسبة للموضة والجمال والعلامات الفاخرة والمنتجات التي تعتمد على العرض البصري.',
+    note: 'مصممة للعلامات التجارية والمنتجات والفرق الرقمية الطموحة.',
     cta: 'استكشف الأعمال المختارة',
   },
 } as const;
