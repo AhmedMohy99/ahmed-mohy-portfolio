@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { translateContent, type ContentLocale } from '@/locales/content';
 import { translateProjectContent } from '@/locales/project-content';
 import { domTranslations } from '@/locales/dom-content';
+import { commerceTranslations } from '@/locales/commerce-translations';
 
 const STORAGE_KEY = 'ahmed-language';
 const EVENT_NAME = 'portfolio-language-change';
@@ -19,7 +20,7 @@ function translate(value: string, locale: ContentLocale) {
   const trailing = value.match(/\s*$/)?.[0] ?? '';
   const trimmed = value.trim();
   if (!trimmed) return value;
-  const extra = domTranslations[trimmed];
+  const extra = commerceTranslations[trimmed] || domTranslations[trimmed];
   if (extra) return `${leading}${extra}${trailing}`;
   const translated = translateProjectContent(translateContent(trimmed, locale));
   return `${leading}${translated}${trailing}`;
