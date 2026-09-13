@@ -11,6 +11,7 @@ import { BilingualSite } from './bilingual-site';
 import { ScheduleCall } from './schedule-call';
 import { ConversionAnalytics } from './conversion-analytics';
 import { InteractiveCommerce } from './interactive-commerce';
+import { RedesignGrowth } from './redesign-growth';
 import { aiProjects, process, services } from '@/data/projects';
 import { site } from '@/lib/site';
 
@@ -36,6 +37,7 @@ export default function SiteServer() {
 
     <section id="services" className="border-y border-[var(--line)] bg-[var(--panel)]" aria-labelledby="services-title"><div className="container py-28 md:py-40"><div className="label mb-12">Capabilities</div><h2 id="services-title" className="sr-only">Services</h2><div className="hairline-grid grid md:grid-cols-2">{services.map((service) => <article key={service.id} className="service-card"><div className="text-sm text-[var(--bronze)]">{service.number}</div><h3 className="display mt-10 text-3xl md:text-5xl">{service.title}</h3><p className="mt-5 max-w-md leading-relaxed text-[var(--ink-soft)]">{service.text}</p></article>)}</div></div></section>
 
+    <RedesignGrowth />
     <WorkSection />
     <section className="section-dark py-28 md:py-40" aria-labelledby="ai-title"><div className="container"><div className="label mb-7">AI & data</div><div className="grid gap-12 md:grid-cols-[1.1fr_.9fr] md:items-end"><div><h2 id="ai-title" className="display section-title">I BUILD<br /><span className="serif-italic">WITH AI.</span></h2></div><div><p className="max-w-xl text-lg leading-relaxed opacity-75">Conversational assistants, document intelligence, analytics, automation and lead-generation systems designed around practical business use.</p></div></div><div className="mt-16 grid border-t border-white/15 md:grid-cols-2">{aiProjects.map((p, i) => <div key={p.name} className="border-b border-white/15 p-7 md:p-10"><div className="text-sm opacity-50">{String(i + 1).padStart(2, '0')}</div><h3 className="display mt-8 text-3xl md:text-4xl">{p.name}</h3><p className="mt-3 text-sm opacity-65">{p.sub}</p></div>)}</div><a href="#ai-lab" className="btn btn-secondary mt-10 border-white/30 text-[var(--on-charcoal)] hover:border-white hover:bg-white hover:text-[var(--charcoal)]">Open AI Sales Lab <ArrowUpRight size={15} /></a></div></section>
 
