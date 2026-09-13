@@ -6,26 +6,64 @@ import { site } from '@/lib/site';
 
 type Lang = 'en' | 'ar';
 type Message = { role: 'user' | 'assistant'; text: string };
+type ChatCopy = {
+  title: string;
+  subtitle: string;
+  welcome: string;
+  placeholder: string;
+  send: string;
+  language: string;
+  restart: string;
+  call: string;
+  live: string;
+  starters: readonly string[];
+  close: string;
+  online: string;
+  popular: string;
+};
+
 const MAX_HISTORY = 8;
 
-const copy = {
+const copy: Record<Lang, ChatCopy> = {
   en: {
     title: 'Ahmed AI Assistant',
     subtitle: 'Ask about projects, services or starting a project.',
     welcome: "Hi 👋 I'm Ahmed's portfolio assistant. How can I help?",
     placeholder: 'Ask me anything…',
-    send: 'Send', language: 'العربية', restart: 'New chat', call: 'Arrange a call', live: 'Talk to live agent',
-    close: 'Close assistant', online: 'Online · Ready to help', popular: 'Popular questions',
+    send: 'Send',
+    language: 'العربية',
+    restart: 'New chat',
+    call: 'Arrange a call',
+    live: 'Talk to live agent',
+    starters: [
+      'What services do you offer?',
+      'Tell me about your AI work',
+      'How can I contact Ahmed?',
+    ],
+    close: 'Close assistant',
+    online: 'Online · Ready to help',
+    popular: 'Popular questions',
   },
   ar: {
     title: 'مساعد أحمد الذكي',
     subtitle: 'اسأل عن المشاريع أو الخدمات أو بدء مشروع جديد.',
     welcome: 'مرحباً 👋 أنا مساعد أحمد. كيف يمكنني مساعدتك؟',
     placeholder: 'اكتب سؤالك…',
-    send: 'إرسال', language: 'EN', restart: 'محادثة جديدة', call: 'رتّب مكالمة', live: 'تحدث مع الوكيل المباشر',
-    close: 'إغلاق المساعد', online: 'متصل · جاهز للمساعدة', popular: 'أسئلة شائعة',
+    send: 'إرسال',
+    language: 'EN',
+    restart: 'محادثة جديدة',
+    call: 'رتّب مكالمة',
+    live: 'تحدث مع الوكيل المباشر',
+    starters: [
+      'ما الخدمات التي تقدمها؟',
+      'حدثني عن أعمال الذكاء الاصطناعي',
+      'كيف أتواصل مع أحمد؟',
+    ],
+    close: 'إغلاق المساعد',
+    online: 'متصل · جاهز للمساعدة',
+    popular: 'أسئلة شائعة',
   },
-} as const;
+};
 
 export function PortfolioChatbot() {
   const [open, setOpen] = useState(false);
@@ -42,16 +80,28 @@ export function PortfolioChatbot() {
     if (saved === 'ar') setLang('ar');
   }, []);
 
-  useEffect(() => { if (open) window.setTimeout(() => inputRef.current?.focus(), 120); }, [open]);
-  useEffect(() => { endRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, [messages, loading]);
+  useEffect(() => {
+    if (!open) return;
+    const timer = window.setTimeout(() => inputRef.current?.focus(), 120);
+    return () => window.clearTimeout(timer);
+  }, [open]);
+
+  useEffect(() => {
+    endRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }, [messages, loading]);
 
   useEffect(() => {
     if (!open) return;
-    const onKeyDown = (event: KeyboardEvent) => { if (event.key === 'Escape') setOpen(false); };
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setOpen(false);
+    };
     const previousOverflow = document.body.style.overflow;
     if (window.matchMedia('(max-width: 700px)').matches) document.body.style.overflow = 'hidden';
     window.addEventListener('keydown', onKeyDown);
-    return () => { document.body.style.overflow = previousOverflow; window.removeEventListener('keydown', onKeyDown); };
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', onKeyDown);
+    };
   }, [open]);
 
   const switchLanguage = () => {
@@ -62,7 +112,11 @@ export function PortfolioChatbot() {
     window.dispatchEvent(new CustomEvent('portfolio-language-change', { detail: next }));
   };
 
-  const restartChat = () => { setMessages([]); setInput(''); setLoading(false); };
+  const restartChat = () => {
+    setMessages([]);
+    setInput('');
+    setLoading(false);
+  };
 
   const ask = async (text: string) => {
     const value = text.trim();
@@ -72,16 +126,29 @@ export function PortfolioChatbot() {
     setMessages((current) => [...current, { role: 'user', text: value }]);
     setLoading(true);
     try {
-      const response = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: value, lang, messages: history }) });
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: value, lang, messages: history }),
+      });
       if (!response.ok) throw new Error('Chat request failed');
       const data = await response.json();
       setMessages((current) => [...current, { role: 'assistant', text: data.reply || t.welcome }]);
     } catch {
-      setMessages((current) => [...current, { role: 'assistant', text: lang === 'ar' ? 'حدث خطأ مؤقتاً. حاول مرة أخرى.' : 'Something went wrong. Please try again.' }]);
-    } finally { setLoading(false); }
+      setMessages((current) => [...current, {
+        role: 'assistant',
+        text: lang === 'ar' ? 'حدث خطأ مؤقتاً. حاول مرة أخرى.' : 'Something went wrong. Please try again.',
+      }]);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const submit = (event: FormEvent<HTMLFormElement>) => { event.preventDefault(); ask(input); };
+  const submit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    ask(input);
+  };
+
   const panelHeight = 'h-[min(690px,calc(100svh-24px))] sm:h-[min(690px,calc(100vh-48px))]';
 
   return <>
@@ -91,7 +158,9 @@ export function PortfolioChatbot() {
       className="fixed bottom-[calc(4.5rem+env(safe-area-inset-bottom))] right-4 z-[70] inline-flex min-h-12 items-center gap-3 rounded-full border border-[var(--line-strong)] bg-[var(--fg)] px-5 py-3 text-sm text-white shadow-[0_18px_50px_rgba(20,18,15,.22)] transition-transform hover:-translate-y-1 focus-visible:-translate-y-0.5 sm:bottom-6 sm:right-6"
       aria-label="Open Ahmed AI Assistant"
     >
-      <Bot size={17} /><span className="hidden sm:inline">Ask Ahmed AI</span><MessageCircle size={15} className="sm:hidden" />
+      <Bot size={17} />
+      <span className="hidden sm:inline">Ask Ahmed AI</span>
+      <MessageCircle size={15} className="sm:hidden" />
     </button>
 
     {open && <div
@@ -123,7 +192,7 @@ export function PortfolioChatbot() {
         <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-4 sm:p-5" aria-live="polite">
           {messages.length === 0 ? <div className="flex min-h-full flex-col justify-center py-2">
             <div className="rounded-2xl border border-[var(--line)] bg-[var(--panel)] p-4 sm:p-5"><p className="text-sm leading-relaxed text-[var(--ink-soft)]">{t.welcome}</p></div>
-            <div className="mt-4"><div className="mb-2 flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[.14em] text-[var(--muted)]"><CheckCircle2 size={13} className="text-[var(--bronze)]" />{t.popular}</div><div className="grid gap-2">{t.starters.map((starter) => <button key={starter} type="button" onClick={() => ask(starter)} className="w-full rounded-xl border border-[var(--line)] bg-[var(--white)] px-4 py-3 text-start text-sm leading-6 transition hover:-translate-y-0.5 hover:border-[var(--line-strong)] hover:bg-[var(--panel)]">{starter}</button>)}</div></div>
+            <div className="mt-4"><div className="mb-2 flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[.14em] text-[var(--muted)]"><CheckCircle2 size={13} className="text-[var(--bronze)]" />{t.popular}</div><div className="grid gap-2">{t.starters.map((starter: string) => <button key={starter} type="button" onClick={() => ask(starter)} className="w-full rounded-xl border border-[var(--line)] bg-[var(--white)] px-4 py-3 text-start text-sm leading-6 transition hover:-translate-y-0.5 hover:border-[var(--line-strong)] hover:bg-[var(--panel)]">{starter}</button>)}</div></div>
             <div className="mt-3 grid gap-2 sm:grid-cols-2"><a href={site.booking} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-[var(--fg)] px-4 py-3 text-sm text-white transition hover:-translate-y-0.5"><CalendarDays size={15} />{t.call}</a><a href="#live-sales-agent" onClick={() => setOpen(false)} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-[var(--line)] bg-[var(--white)] px-4 py-3 text-sm transition hover:-translate-y-0.5 hover:bg-[var(--panel)]"><MessageCircle size={15} />{t.live}</a></div>
           </div> : <div className="space-y-4 pb-2">
             {messages.map((message, index) => <div key={`${message.role}-${index}`} className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}><div className={`max-w-[88%] whitespace-pre-line rounded-2xl px-4 py-3 text-sm leading-relaxed shadow-sm ${message.role === 'user' ? 'rounded-br-md bg-[var(--fg)] text-white' : 'rounded-bl-md border border-[var(--line)] bg-[var(--panel)] text-[var(--ink-soft)]'}`}>{message.text}</div></div>)}
