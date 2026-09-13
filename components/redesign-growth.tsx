@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowUpRight, BarChart3, Gauge, Layers3, Search, ShoppingBag, Sparkles } from 'lucide-react';
+import { ArrowUpRight, BarChart3, CheckCircle2, Gauge, Layers3, Search, ShoppingBag, Sparkles } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 const copy = {
@@ -12,6 +12,9 @@ const copy = {
     cta: 'Request a website review',
     benchmark: 'Inspired by proven agency patterns',
     benchmarkText: 'The direction combines strategic positioning, strong visual systems, conversion-focused UX and performance-minded development — patterns reflected across leading web design firms on Clutch.',
+    stackLabel: 'The growth system',
+    stack: ['Strategy & positioning', 'UX & information architecture', 'Performance & SEO', 'CRO & analytics'],
+    referencesLabel: 'Clutch references',
     cards: [
       ['01', 'Audit before redesign', 'Find friction in navigation, content hierarchy, mobile UX, performance and conversion paths before changing the visuals.', Search],
       ['02', 'Reposition the experience', 'Clarify the value proposition, page structure and brand story so visitors understand the offer faster.', Sparkles],
@@ -35,6 +38,9 @@ const copy = {
     cta: 'اطلب مراجعة لموقعك',
     benchmark: 'مستوحى من أنماط وكالات رقمية قوية',
     benchmarkText: 'يجمع هذا الاتجاه بين التموضع الاستراتيجي، والهوية البصرية القوية، وتجربة المستخدم الموجهة للتحويل، والتطوير المهتم بالأداء — وهي أنماط ظاهرة لدى شركات تصميم الويب الرائدة على Clutch.',
+    stackLabel: 'منظومة النمو',
+    stack: ['الاستراتيجية والتموضع', 'تجربة المستخدم وهيكل المعلومات', 'الأداء وتهيئة محركات البحث', 'التحويل والتحليلات'],
+    referencesLabel: 'مراجع Clutch',
     cards: [
       ['01', 'ابدأ بالتدقيق قبل إعادة التصميم', 'أحدد نقاط الاحتكاك في التنقل وترتيب المحتوى وتجربة الهاتف والأداء ومسارات التحويل قبل تغيير الشكل.', Search],
       ['02', 'أعد صياغة التجربة', 'أوضح القيمة التي يقدمها النشاط وهيكل الصفحات وقصة العلامة حتى يفهم الزائر العرض بشكل أسرع.', Sparkles],
@@ -74,26 +80,18 @@ export function RedesignGrowth() {
         <div className="grid gap-12 lg:grid-cols-[1.05fr_.95fr] lg:items-end">
           <div>
             <div className="label mb-7">{t.eyebrow}</div>
-            <h2 id="redesign-growth-title" className="display section-title max-w-4xl">
-              {t.titleA}<br />
-              <span className="serif-italic">{t.titleB}</span>
-            </h2>
+            <h2 id="redesign-growth-title" className="display section-title max-w-4xl">{t.titleA}<br /><span className="serif-italic">{t.titleB}</span></h2>
           </div>
           <div className="max-w-xl lg:justify-self-end">
             <p className="text-lg leading-relaxed text-[var(--ink-soft)]">{t.intro}</p>
-            <a href="#contact" className="btn btn-primary mt-8 inline-flex">
-              {t.cta} <ArrowUpRight size={15} />
-            </a>
+            <a href="#contact" className="btn btn-primary mt-8 inline-flex">{t.cta} <ArrowUpRight size={15} /></a>
           </div>
         </div>
 
         <div className="mt-16 grid border-y border-[var(--line)] md:grid-cols-3">
           {t.cards.map(([number, title, text, Icon]) => (
-            <article key={number} className="border-b border-[var(--line)] p-7 last:border-b-0 md:border-r md:p-9 md:last:border-r-0 md:nth-last-child(-n+3):border-b-0">
-              <div className="flex items-start justify-between gap-5">
-                <span className="text-sm text-[var(--bronze)]">{number}</span>
-                <Icon aria-hidden="true" size={19} className="text-[var(--bronze)]" />
-              </div>
+            <article key={number} className="group flex min-h-[270px] flex-col border-b border-[var(--line)] p-7 transition-all duration-300 hover:-translate-y-1 hover:bg-[var(--panel)] last:border-b-0 md:border-r md:p-9 md:last:border-r-0">
+              <div className="flex items-start justify-between gap-5"><span className="text-sm text-[var(--bronze)]">{number}</span><Icon aria-hidden="true" size={19} className="text-[var(--bronze)] transition-transform duration-300 group-hover:scale-110" /></div>
               <h3 className="display mt-8 text-2xl md:text-3xl">{title}</h3>
               <p className="mt-4 text-sm leading-7 text-[var(--muted)]">{text}</p>
             </article>
@@ -101,29 +99,21 @@ export function RedesignGrowth() {
         </div>
 
         <div className="mt-16 grid gap-10 lg:grid-cols-[.7fr_1.3fr] lg:items-start">
-          <div>
-            <div className="label">{t.benchmark}</div>
-            <p className="mt-4 max-w-md text-sm leading-7 text-[var(--muted)]">{t.benchmarkText}</p>
-          </div>
-          <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
-            {t.outcomes.map((item) => (
-              <div key={item} className="rounded-2xl border border-[var(--line)] bg-[var(--panel)] px-5 py-4 text-sm font-medium text-[var(--ink-soft)]">{item}</div>
-            ))}
+          <div><div className="label">{t.benchmark}</div><p className="mt-4 max-w-md text-sm leading-7 text-[var(--muted)]">{t.benchmarkText}</p></div>
+          <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">{t.outcomes.map((item) => <div key={item} className="rounded-2xl border border-[var(--line)] bg-[var(--panel)] px-5 py-4 text-sm font-medium text-[var(--ink-soft)] transition hover:-translate-y-0.5 hover:border-[var(--line-strong)]">{item}</div>)}</div>
+        </div>
+
+        <div className="mt-14 rounded-[1.75rem] border border-[var(--line)] bg-[var(--panel)] p-5 sm:p-7 md:p-9">
+          <div className="label">{t.stackLabel}</div>
+          <div className="mt-6 grid gap-3 md:grid-cols-4">
+            {t.stack.map((item, index) => <div key={item} className="relative rounded-2xl border border-[var(--line)] bg-[var(--white)] p-5"><div className="text-xs font-semibold text-[var(--bronze)]">{String(index + 1).padStart(2, '0')}</div><div className="mt-4 text-sm font-semibold leading-6 text-[var(--ink-soft)]">{item}</div>{index < t.stack.length - 1 && <span className="pointer-events-none absolute -right-2 top-1/2 hidden h-4 w-4 -translate-y-1/2 items-center justify-center rounded-full border border-[var(--line-strong)] bg-[var(--panel)] text-[9px] text-[var(--muted)] md:flex">→</span>}</div>)}
           </div>
         </div>
 
         <div className="mt-14 border-t border-[var(--line)] pt-8">
-          <div className="mb-5 text-xs font-semibold tracking-[.18em] text-[var(--muted)]">CLUTCH REFERENCES</div>
+          <div className="mb-5 text-xs font-semibold uppercase tracking-[.18em] text-[var(--muted)]">{t.referencesLabel}</div>
           <div className="grid gap-3 md:grid-cols-3">
-            {t.references.map(([name, service, href]) => (
-              <a key={name} href={href} target="_blank" rel="noreferrer" className="group rounded-2xl border border-[var(--line)] bg-[var(--panel)] p-5 transition-transform duration-300 hover:-translate-y-0.5">
-                <div className="flex items-center justify-between gap-4">
-                  <span className="font-semibold tracking-tight">{name}</span>
-                  <ArrowUpRight size={15} className="text-[var(--muted)] transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                </div>
-                <p className="mt-2 text-sm text-[var(--muted)]">{service}</p>
-              </a>
-            ))}
+            {t.references.map(([name, service, href]) => <a key={name} href={href} target="_blank" rel="noreferrer" className="group rounded-2xl border border-[var(--line)] bg-[var(--panel)] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--line-strong)] hover:bg-[var(--white)]"><div className="flex items-center justify-between gap-4"><span className="font-semibold tracking-tight">{name}</span><ArrowUpRight size={15} className="text-[var(--muted)] transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></div><p className="mt-2 text-sm text-[var(--muted)]">{service}</p><div className="mt-4 inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[.12em] text-[var(--bronze)]"><CheckCircle2 size={13} /> Reference</div></a>)}
           </div>
         </div>
       </div>
