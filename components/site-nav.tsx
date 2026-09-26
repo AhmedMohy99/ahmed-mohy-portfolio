@@ -1,22 +1,19 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { MousePointer2, X, Languages, CalendarDays, ArrowUpRight } from 'lucide-react';
+import { X, Languages, ArrowUpRight } from 'lucide-react';
 import { dictionaries, getLocaleFromBrowser, persistLocale, type Locale } from '@/lib/i18n';
 
 const navVisuals = [
   { key: 'home', href: '#top' },
   { key: 'work', href: '#work' },
   { key: 'services', href: '#services' },
-  { key: 'about', href: '#about' },
-  { key: 'aiSalesLab', href: '#ai-lab' },
   { key: 'contact', href: '#contact' },
 ] as const;
 
 export function SiteNav() {
   const nav = useRef<HTMLElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [reduced3D, setReduced3D] = useState(false);
   const [language, setLanguage] = useState<Locale>('en');
   const t = dictionaries[language].nav;
   const a = dictionaries[language].accessibility;
@@ -25,7 +22,6 @@ export function SiteNav() {
     const stored = getLocaleFromBrowser();
     setLanguage(stored);
     persistLocale(stored);
-    setReduced3D(window.localStorage.getItem('ahmed-reduced-3d') === 'true');
 
     let last = window.scrollY;
     const onScroll = () => {
@@ -43,13 +39,6 @@ export function SiteNav() {
       document.body.style.overflow = '';
     };
   }, [menuOpen]);
-
-  const toggle3D = () => {
-    const next = !reduced3D;
-    setReduced3D(next);
-    window.localStorage.setItem('ahmed-reduced-3d', String(next));
-    window.dispatchEvent(new CustomEvent('portfolio-3d-toggle', { detail: next }));
-  };
 
   const changeLanguage = () => {
     const next: Locale = language === 'ar' ? 'en' : 'ar';
@@ -80,14 +69,6 @@ export function SiteNav() {
             <Languages size={13} /><span>{language === 'ar' ? t.english : t.arabic}</span>
           </button>
 
-          <button type="button" onClick={toggle3D} className="accessibility-toggle hidden sm:inline-flex" aria-pressed={reduced3D}>
-            <MousePointer2 size={13} /><span>{reduced3D ? t.threeDOff : t.threeDOn}</span>
-          </button>
-
-          <a href="#schedule-call" onClick={closeMenu} className="btn btn-primary hidden lg:inline-flex">
-            <CalendarDays size={14} />{language === 'ar' ? 'رتّب مكالمة' : 'Arrange a call'}
-          </a>
-
           <button type="button" aria-label={menuOpen ? a.closeMenu : a.openMenu} aria-expanded={menuOpen} onClick={() => setMenuOpen((value) => !value)} className="menu-trigger rounded-full border border-[var(--line-strong)] bg-[var(--white)] p-2.5 md:hidden">
             {menuOpen ? <X size={18} /> : <span className="block w-[18px]" aria-hidden="true"><span className="mb-1 block h-px bg-current" /><span className="block h-px bg-current" /></span>}
           </button>
@@ -115,14 +96,9 @@ export function SiteNav() {
               })}
             </nav>
 
-            <a href="#schedule-call" onClick={closeMenu} className="mt-5 flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-[var(--fg)] px-5 text-[11px] font-semibold uppercase tracking-[.12em] text-white">
-              <CalendarDays size={15} />{language === 'ar' ? 'رتّب مكالمة' : 'Arrange a call'}
+            <a href="#contact" onClick={closeMenu} className="mt-5 flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-[var(--fg)] px-5 text-[11px] font-semibold uppercase tracking-[.12em] text-white">
+              {language === 'ar' ? 'ابدأ مشروعًا' : 'Start a project'} <ArrowUpRight size={15} />
             </a>
-
-            <button type="button" className="mt-4 flex w-full items-center justify-between border-t border-[var(--line)] pt-4 text-left text-[11px] text-[var(--muted)]" onClick={toggle3D}>
-              <span>{language === 'ar' ? 'تجربة 3D' : '3D experience'}</span>
-              <span className="font-semibold text-[var(--fg)]">{reduced3D ? t.threeDOff : t.threeDOn}</span>
-            </button>
           </div>
         </div>
       )}
