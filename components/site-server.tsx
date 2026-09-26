@@ -1,4 +1,4 @@
-import { ArrowDown, ArrowUpRight, CalendarDays } from 'lucide-react';
+import { ArrowDown, ArrowUpRight } from 'lucide-react';
 import { Hero3D } from './hero';
 import { SiteNav } from './site-nav';
 import { WorkSection } from './work-section';
@@ -8,7 +8,6 @@ import { FloatingNav } from './portfolio/floating-nav';
 import { AISalesLab } from './ai-sales-lab';
 import { LiveSalesAgent } from './live-sales-agent';
 import { BilingualSite } from './bilingual-site';
-import { ScheduleCall } from './schedule-call';
 import { ConversionAnalytics } from './conversion-analytics';
 import { InteractiveCommerce } from './interactive-commerce';
 import { RedesignGrowth } from './redesign-growth';
@@ -26,7 +25,7 @@ export default function SiteServer() {
       <div className="absolute inset-0 opacity-55"><Hero3D /></div>
       <div className="container relative z-10 flex min-h-screen flex-col justify-end pb-12 pt-28 md:pb-16">
         <div className="max-w-6xl"><div className="label mb-6">IT · AI · WEB · COMMERCE · 3D</div><h1 id="hero-title" className="display hero-title">I BUILD DIGITAL<br />EXPERIENCES<br /><span className="serif-italic">THAT MOVE BUSINESS.</span></h1><p className="hero-copy mt-8 max-w-2xl">I&apos;m Ahmed Mohyeldin — I design and build AI, web and commerce experiences that make products easier to understand, easier to use and easier to buy.</p></div>
-        <div className="mt-9 flex flex-wrap gap-3"><a href="#ai-lab" className="btn btn-primary">Try the AI Sales Lab <ArrowUpRight size={15} /></a><a href="#interactive-commerce" className="btn btn-secondary">Explore digital experiences</a><a href="#schedule-call" className="btn btn-secondary"><CalendarDays size={15} /> Arrange a call</a><a href="#contact" className="btn btn-secondary">Start a project</a></div>
+        <div className="mt-9 flex flex-wrap gap-3"><a href="#work" className="btn btn-primary">View my work <ArrowUpRight size={15} /></a><a href="#contact" className="btn btn-secondary">Start a project <ArrowUpRight size={15} /></a></div>
         <div className="mt-14 flex items-center justify-between border-t border-[var(--line)] pt-5 text-sm text-[var(--muted)]"><span>Cairo, Egypt · Available for selected projects</span><a href="#work" className="hidden items-center gap-2 md:flex">Scroll to explore <ArrowDown size={14} /></a></div>
       </div>
     </section>
@@ -37,16 +36,14 @@ export default function SiteServer() {
 
     <section id="services" className="border-y border-[var(--line)] bg-[var(--panel)]" aria-labelledby="services-title"><div className="container py-28 md:py-40"><div className="label mb-12">Capabilities</div><h2 id="services-title" className="sr-only">Services</h2><div className="hairline-grid grid md:grid-cols-2">{services.map((service) => <article key={service.id} className="service-card"><div className="text-sm text-[var(--bronze)]">{service.number}</div><h3 className="display mt-10 text-3xl md:text-5xl">{service.title}</h3><p className="mt-5 max-w-md leading-relaxed text-[var(--ink-soft)]">{service.text}</p></article>)}</div></div></section>
 
-    <RedesignGrowth />
     <WorkSection />
     <section className="section-dark py-28 md:py-40" aria-labelledby="ai-title"><div className="container"><div className="label mb-7">AI & data</div><div className="grid gap-12 md:grid-cols-[1.1fr_.9fr] md:items-end"><div><h2 id="ai-title" className="display section-title">I BUILD<br /><span className="serif-italic">WITH AI.</span></h2></div><div><p className="max-w-xl text-lg leading-relaxed opacity-75">Conversational assistants, document intelligence, analytics, automation and lead-generation systems designed around practical business use.</p></div></div><div className="mt-16 grid border-t border-white/15 md:grid-cols-2">{aiProjects.map((p, i) => <div key={p.name} className="border-b border-white/15 p-7 md:p-10"><div className="text-sm opacity-50">{String(i + 1).padStart(2, '0')}</div><h3 className="display mt-8 text-3xl md:text-4xl">{p.name}</h3><p className="mt-3 text-sm opacity-65">{p.sub}</p></div>)}</div><a href="#ai-lab" className="btn btn-secondary mt-10 border-white/30 text-[var(--on-charcoal)] hover:border-white hover:bg-white hover:text-[var(--charcoal)]">Open AI Sales Lab <ArrowUpRight size={15} /></a></div></section>
 
-    <AISalesLab /><LiveSalesAgent /><ScheduleCall /><InteractiveCommerce />
+    <AISalesLab />
     <section className="border-y border-[var(--line)] bg-[var(--panel)]" aria-labelledby="process-title"><div className="container py-28 md:py-40"><div className="label mb-7">How I work</div><h2 id="process-title" className="display section-title">FROM IDEA<br /><span className="serif-italic">TO IMPACT.</span></h2><div className="mt-16 grid border-t border-[var(--line)] md:grid-cols-4">{process.map((item) => <article key={item.step} className="border-b border-[var(--line)] p-7 md:border-b-0 md:border-r md:p-9 md:last:border-r-0"><div className="text-sm text-[var(--bronze)]">{item.step}</div><h3 className="display mt-8 text-2xl">{item.title}</h3><p className="mt-4 text-sm leading-relaxed text-[var(--muted)]">{item.text}</p></article>)}</div></div></section>
     <section id="contact" className="section-dark py-28 md:py-40" aria-labelledby="contact-title"><div className="container"><div className="grid gap-14 md:grid-cols-[1.1fr_.9fr] md:items-end"><div><div className="label mb-7">Start a conversation</div><h2 id="contact-title" className="display section-title">LET&apos;S BUILD<br /><span className="serif-italic">SOMETHING.</span></h2></div><ContactForm /></div></div></section>
     <footer className="border-t border-[var(--line)] bg-[var(--bg)]"><div className="container flex flex-col gap-4 py-8 text-sm text-[var(--muted)] md:flex-row md:items-center md:justify-between"><span>© {new Date().getFullYear()} {site.shortName}. All rights reserved.</span><span>AI · Web · Commerce · UI/UX · 3D</span></div></footer>
     <FloatingNav />
-    <div className="fixed inset-x-3 bottom-3 z-[60] md:hidden"><a href="#schedule-call" className="flex min-h-12 items-center justify-center gap-2 rounded-full bg-[var(--fg)] px-5 py-3 text-sm font-medium text-white shadow-[0_16px_50px_rgba(20,18,15,.28)]"><CalendarDays size={16} /> Arrange a call</a></div>
     <PortfolioChatbot />
   </main>;
 }
