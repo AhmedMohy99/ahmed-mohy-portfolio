@@ -16,6 +16,7 @@ const copy = {
     placeholder: 'Ask me anything…',
     send: 'Send', language: 'العربية', restart: 'New chat', call: 'Arrange a call', live: 'Talk to live agent',
     close: 'Close assistant', online: 'Online · Ready to help', popular: 'Popular questions',
+    starters: ['What services do you offer?', 'Can I see your recent projects?', 'How can we start a project?'],
   },
   ar: {
     title: 'مساعد أحمد الذكي',
@@ -24,6 +25,7 @@ const copy = {
     placeholder: 'اكتب سؤالك…',
     send: 'إرسال', language: 'EN', restart: 'محادثة جديدة', call: 'رتّب مكالمة', live: 'تحدث مع الوكيل المباشر',
     close: 'إغلاق المساعد', online: 'متصل · جاهز للمساعدة', popular: 'أسئلة شائعة',
+    starters: ['ما الخدمات التي تقدمها؟', 'هل يمكنني مشاهدة أحدث مشاريعك؟', 'كيف يمكننا بدء مشروع؟'],
   },
 } as const;
 
