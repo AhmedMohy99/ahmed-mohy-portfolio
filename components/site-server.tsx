@@ -53,7 +53,7 @@ export default function SiteServer() {
             <h2 id="services-title" className="display section-title">ONE CLEAR GOAL:<br /><span className="serif-italic">MAKE DIGITAL EASIER.</span></h2>
           </div>
           <div className="hairline-grid grid md:grid-cols-2">
-            {services.map((service) => (
+            {services.filter((service) => ['software', 'ai', 'uiux', 'ecommerce'].includes(service.id)).map((service) => (
               <article key={service.id} className="service-card">
                 <div className="text-sm font-semibold text-[var(--accent)]">{service.number}</div>
                 <h3 className="display mt-7 text-3xl md:text-4xl">{service.title}</h3>
@@ -76,7 +76,7 @@ export default function SiteServer() {
             <div>
               <p className="max-w-2xl text-lg leading-relaxed text-[var(--ink-soft)]">I build practical AI systems for customer conversations, documents, analytics and repetitive workflows — without making the experience complicated.</p>
               <div className="mt-8 grid gap-3 sm:grid-cols-2">
-                {aiProjects.map((p, i) => (
+                {aiProjects.slice(0, 3).map((p, i) => (
                   <div key={p.name} className="simple-list-card">
                     <span>{String(i + 1).padStart(2, '0')}</span>
                     <div><h3>{p.name}</h3><p>{p.sub}</p></div>
@@ -94,8 +94,8 @@ export default function SiteServer() {
             <div className="label mb-4">Simple process</div>
             <h2 id="process-title" className="display section-title">FROM IDEA<br /><span className="serif-italic">TO LAUNCH.</span></h2>
           </div>
-          <div className="grid border-t border-[var(--line)] md:grid-cols-3">
-            {process.slice(0, 3).map((item) => (
+          <div className="grid border-t border-[var(--line)] md:grid-cols-4">
+            {process.map((item) => (
               <article key={item.step} className="process-card">
                 <div className="text-sm font-semibold text-[var(--accent)]">{item.step}</div>
                 <h3 className="display mt-6 text-2xl">{item.title}</h3>
