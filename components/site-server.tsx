@@ -94,7 +94,7 @@ export default function SiteServer() {
             <div className="label mb-4">Simple process</div>
             <h2 id="process-title" className="display section-title">FROM IDEA<br /><span className="serif-italic">TO LAUNCH.</span></h2>
           </div>
-          <div className="grid border-t border-[var(--line)] md:grid-cols-3">
+          <div className="grid border-t border-[var(--line)] md:grid-cols-4">
             {process.map((item) => (
               <article key={item.step} className="process-card">
                 <div className="text-sm font-semibold text-[var(--accent)]">{item.step}</div>
